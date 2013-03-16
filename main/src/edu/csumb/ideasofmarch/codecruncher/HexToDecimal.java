@@ -1,65 +1,72 @@
 package edu.csumb.ideasofmarch.codecruncher;
 
-import edu.csumb.ideasofmarch.codecruncher.DecimalToBinary.SubmitButtonListener;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 import android.widget.NumberPicker;
 
 public class HexToDecimal extends Activity {
 
-	private NumberPicker decimalInput;
+	private NumberPicker hexInput;
 	private Button submitButton;
-	private TextView binarySolution;
-	private String solution;
+	private TextView decimalSolution;
+	private int solution;
+	private String [] hexValues = new String[16];
 	
 	
 	@Override
-	  public void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    setContentView(R.layout.activity_decimal_to_binary);
+	    setContentView(R.layout.hex_to_decimal);
 	    
 	    submitButton = (Button) findViewById(R.id.submitButton);
-	    decimalInput = (NumberPicker) findViewById(R.id.decimalInput);
-	    decimalInput.setMaxValue(16);
-	    decimalInput.setMinValue(0);
-	    binarySolution = (TextView) findViewById(R.id.binarySolution);
-
-	    solution = Integer.toBinaryString((int) Math.floor(Math.random()*16));
 	    
-	    binarySolution.setText(solution);
+	    String [] hexValues = new String[16];
+	    for (int i = 0; i < 10; i ++) {
+	    	hexValues[i] = Integer.toString(i);
+	    }
+	    hexValues[10] = "A";
+	    hexValues[11] = "B";
+	    hexValues[12] = "C";
+	    hexValues[13] = "D";
+	    hexValues[14] = "E";
+	    hexValues[15] = "F";
+	    
+	    hexInput = (NumberPicker) findViewById(R.id.hexInput);
+	    hexInput.setMaxValue(15);
+	    hexInput.setMinValue(0);
+	    hexInput.setDisplayedValues(hexValues);
+	    
+	    decimalSolution = (TextView) findViewById(R.id.decimalSolution);
+
+	    solution = (int) Math.floor(Math.random()*16);
+	    
+	    decimalSolution.setText("" + solution);
 	    
 	    submitButton.setOnClickListener(new SubmitButtonListener());
-	  }
+	}
 
     private class SubmitButtonListener implements OnClickListener {
 		public void onClick(View view) {
 			// Get the string in binary of the user's guess
-			String decimalGuess = getGuess();
+			String hexGuess = Integer.toHexString(hexInput.getValue());
 			
-			if(decimalGuess.equals(solution)) {
-				binarySolution.setTextColor(Color.GREEN);
-				solution = Integer.toBinaryString((int) Math.floor(Math.random()*16));
-				binarySolution.setText(solution);
-				binarySolution.setTextColor(Color.BLACK);
-			    decimalInput.setValue(0);
+			if(hexGuess.equals(convertDecimaltoHex(solution))) {
+				decimalSolution.setTextColor(Color.GREEN);
+				solution = (int) Math.floor(Math.random()*16);
+				decimalSolution.setText("" + solution);
+				decimalSolution.setTextColor(Color.BLACK);
 			} else {
-				binarySolution.setTextColor(Color.RED);
+				decimalSolution.setTextColor(Color.RED);
 			}
 		}
     }
-   
-    public String getGuess() {
-    	String binaryInput = Integer.toBinaryString(decimalInput.getValue());
-    	
-    	return binaryInput;
+    
+    public String convertDecimaltoHex(int decInput) {
+    	return Integer.toHexString(decInput);
     }
 }
