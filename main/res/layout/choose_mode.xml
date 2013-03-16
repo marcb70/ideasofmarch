@@ -8,41 +8,47 @@
         android:id="@+id/BinaryToDecimal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mode1" />
+        android:text="@string/mode1"
+        android:background="@drawable/bluebutton" />
 
     <Button
         android:id="@+id/HexToDecimal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/mode2" 
-        android:enabled="false" />
+        android:enabled="false"
+        android:background="@drawable/bluebutton" />
 
     <Button
         android:id="@+id/DecimalToBinary"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/mode3" 
-        android:enabled="false" />
+        android:enabled="false"
+        android:background="@drawable/bluebutton" />
 
     <Button
         android:id="@+id/DecimalToHex"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/mode4" 
-        android:enabled="false" />
+        android:enabled="false" 
+        android:background="@drawable/bluebutton" />
 
     <Button
         android:id="@+id/BinaryToHex"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/mode5" 
-        android:enabled="false" />
+        android:enabled="false" 
+        android:background="@drawable/bluebutton" />
     
     <Button
         android:id="@+id/HexToBinary"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/mode6" 
-        android:enabled="false" />
+        android:enabled="false" 
+        android:background="@drawable/bluebutton" />
 
 </LinearLayout>
