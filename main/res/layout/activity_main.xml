@@ -21,31 +21,36 @@
         android:id="@+id/newGameButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/new_game_button_text" />
+        android:text="@string/new_game_button_text" 
+        android:background="@drawable/bluebutton" />
 
     <Button
         android:id="@+id/continueButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/continue_button_text" 
-        android:enabled="false" />
+        android:enabled="false" 
+        android:background="@drawable/bluebutton" />
 
     <Button
         android:id="@+id/highScoresButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/high_scores_button_text" />
+        android:text="@string/high_scores_button_text" 
+        android:background="@drawable/bluebutton" />
 
     <Button
         android:id="@+id/optionsButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/options_button_text" />
+        android:text="@string/options_button_text" 
+        android:background="@drawable/bluebutton" />
 
     <Button
         android:id="@+id/quitButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/quit_button_text" />
+        android:text="@string/quit_button_text" 
+        android:background="@drawable/bluebutton" />
 
 </LinearLayout>

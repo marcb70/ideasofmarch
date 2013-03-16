@@ -18,25 +18,37 @@
             android:id="@+id/digit4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/binaryInput" />
+            android:text="@string/binaryInput"
+            android:background="@drawable/bluetoggle" 
+            android:textOn="1"
+            android:textOff="0" />
 
         <ToggleButton
             android:id="@+id/digit3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/binaryInput" />
+            android:text="@string/binaryInput"
+            android:background="@drawable/bluetoggle"
+            android:textOn="1"
+            android:textOff="0" />
 
         <ToggleButton
             android:id="@+id/digit2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/binaryInput" />
+            android:text="@string/binaryInput" 
+            android:background="@drawable/bluetoggle"
+            android:textOn="1"
+            android:textOff="0" />
 
         <ToggleButton
             android:id="@+id/digit1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/binaryInput" />
+            android:text="@string/binaryInput" 
+            android:background="@drawable/bluetoggle"
+            android:textOn="1"
+            android:textOff="0" />
 
         <TextView
         	android:id="@+id/decimalSolution"
@@ -50,6 +62,7 @@
         android:id="@+id/submitButton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/checkAnswer" />
+        android:text="@string/checkAnswer" 
+        android:background="@drawable/bluebutton" />
 
 </LinearLayout>
