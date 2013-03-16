@@ -50,6 +50,14 @@
             android:name="edu.csumb.ideasofmarch.codecruncher.DecimalToHex"
             android:label="@string/title_activity_decimal_to_hex" >
         </activity>
+        <activity
+            android:name="edu.csumb.ideasofmarch.codecruncher.BinaryToHex"
+            android:label="@string/title_activity_binary_to_hex" >
+        </activity>
+        <activity
+            android:name="edu.csumb.ideasofmarch.codecruncher.HexToBinary"
+            android:label="@string/title_activity_hex_to_binary" >
+        </activity>
     </application>
 
 </manifest>

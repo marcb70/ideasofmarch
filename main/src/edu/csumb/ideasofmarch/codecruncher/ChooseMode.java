@@ -12,6 +12,8 @@ public class ChooseMode extends Activity {
 	Button decimalToBinary;
 	Button hexToDecimal;
 	Button decimalToHex;
+	Button binaryToHex;
+	Button hexToBinary;
 	
 	@Override
 	  public void onCreate(Bundle savedInstanceState) {
@@ -29,6 +31,12 @@ public class ChooseMode extends Activity {
 	    
 	    decimalToHex = (Button) findViewById(R.id.DecimalToHex);
 	    decimalToHex.setOnClickListener(new DecimalToHexButtonListener());
+	    
+	    binaryToHex = (Button) findViewById(R.id.BinaryToHex);
+	    binaryToHex.setOnClickListener(new BinaryToHexButtonListener());
+	    
+	    hexToBinary = (Button) findViewById(R.id.HexToBinary);
+	    hexToBinary.setOnClickListener(new HexToBinaryButtonListener());
 	  }
 	
 	private class BinaryToDecimalButtonListener implements OnClickListener {
@@ -69,5 +77,25 @@ public class ChooseMode extends Activity {
     
     public void startNewDecimalToHex() {
     	startActivity(new Intent(this, DecimalToHex.class));
+    }
+    
+    private class BinaryToHexButtonListener implements OnClickListener {
+		public void onClick(View view) {
+			startNewBinaryToHex();
+		}
+    }
+    
+    public void startNewBinaryToHex() {
+    	startActivity(new Intent(this, BinaryToHex.class));
+    }
+    
+    private class HexToBinaryButtonListener implements OnClickListener {
+		public void onClick(View view) {
+			startNewHexToBinary();
+		}
+    }
+    
+    public void startNewHexToBinary() {
+    	startActivity(new Intent(this, HexToBinary.class));
     }
 }
