@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
+
 
 public class BinaryToDecimal extends Activity {
 	
@@ -94,6 +96,8 @@ public class BinaryToDecimal extends Activity {
 			    digits1[2].setChecked(false);
 			    digits1[3].setChecked(false);
 			    score += decimalGuess;
+			    LinearLayout aLayout = (LinearLayout) findViewById(R.id.mainLayout);
+			    FourBitRow fbr = new FourBitRow(aLayout, getBaseContext());
 			} else {
 				decimalSolution1.setTextColor(Color.RED);
 			}
