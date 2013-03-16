@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <Button
+        android:id="@+id/BinaryToDecimal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mode1" />
+
+    <Button
+        android:id="@+id/HexToDecimal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mode2" 
+        android:enabled="false" />
+
+    <Button
+        android:id="@+id/DecimalToBinary"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mode3" 
+        android:enabled="false" />
+
+    <Button
+        android:id="@+id/DecimalToHex"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mode4" 
+        android:enabled="false" />
+
+    <Button
+        android:id="@+id/BinaryToHex"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mode5" 
+        android:enabled="false" />
+    
+    <Button
+        android:id="@+id/HexToBinary"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mode6" 
+        android:enabled="false" />
+
+</LinearLayout>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">ConversionCruncher</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="new_game_button_text">New Game</string>
+    <string name="continue_button_text">Continue</string>
+    <string name="options_button_text">Options</string>
+    <string name="high_scores_button_text">High Scores</string>
+    <string name="quit_button_text">Quit</string>
+    <string name="mode1">Binary to Decimal</string>
+    <string name="mode2">Hex to Decimal</string>
+    <string name="mode3">Decimal to Hex</string>
+    <string name="mode4">Decimal to Binary</string>
+    <string name="mode5">Binary to Hex</string>
+    <string name="mode6">Hex to Binary</string>
+    <string name="checkAnswer">Check Answer</string>
+    <string name="binaryInput">Binary Input</string>
+
+</resources>
