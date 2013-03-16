@@ -5,7 +5,7 @@
     android:versionName="1.0" >
 
     <uses-sdk
-        android:minSdkVersion="8"
+        android:minSdkVersion="11"
         android:targetSdkVersion="17" />
 
     <application
@@ -41,6 +41,10 @@
         <activity
             android:name="edu.csumb.ideasofmarch.codecruncher.DecimalToBinary"
             android:label="@string/title_activity_decimal_to_binary" >
+        </activity>
+        <activity
+            android:name="edu.csumb.ideasofmarch.codecruncher.HexToDecimal"
+            android:label="@string/title_activity_hex_to_decimal" >
         </activity>
     </application>
 

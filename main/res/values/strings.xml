@@ -18,5 +18,6 @@
     <string name="checkAnswer">Check Answer</string>
     <string name="binaryInput">Binary Input</string>
     <string name="title_activity_decimal_to_binary">DecimalToBinary</string>
+    <string name="title_activity_hex_to_decimal">HexToDecimal</string>
 
 </resources>

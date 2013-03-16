@@ -13,12 +13,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
-
+		
         <NumberPicker android:id="@+id/decimalInput"
    			android:layout_width="wrap_content"
    			android:layout_height="wrap_content"
    			android:width="100dip"/>
-
+		
         <TextView
         	android:id="@+id/binarySolution"
        	 	android:layout_width="fill_parent"
