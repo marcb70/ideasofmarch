@@ -17,5 +17,10 @@
     <string name="mode6">Hex to Binary</string>
     <string name="checkAnswer">Check Answer</string>
     <string name="binaryInput">Binary Input</string>
+    <string name="title_activity_decimal_to_binary">DecimalToBinary</string>
+    <string name="title_activity_hex_to_decimal">HexToDecimal</string>
+    <string name="title_activity_decimal_to_hex">DecimalToHex</string>
+    <string name="title_activity_binary_to_hex">BinaryToHex</string>
+    <string name="title_activity_hex_to_binary">HexToBinary</string>
 
 </resources>
