@@ -15,10 +15,13 @@
     <string name="mode4">Decimal to Binary</string>
     <string name="mode5">Binary to Hex</string>
     <string name="mode6">Hex to Binary</string>
+    <string name="cumulative">Total</string>
     <string name="checkAnswer">Check Answer</string>
     <string name="binaryInput">Binary Input</string>
     <string name="title_activity_decimal_to_binary">DecimalToBinary</string>
     <string name="title_activity_hex_to_decimal">HexToDecimal</string>
     <string name="zero">0</string>
+    <string name="globalHighScores">Global High Scores</string>
+    <string name="placeholderInitials">AAA</string>
 
 </resources>
