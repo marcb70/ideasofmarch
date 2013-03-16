@@ -17,6 +17,7 @@ public class BinaryToDecimal extends Activity {
 	
 	public static final int numDigits = 4;
 	private CountDownTimer gameClock;
+	private CountDownTimer moreTimer;
 	private ToggleButton digits1[];
 	private String binaryInput;
 	private Button submitButton;
@@ -45,6 +46,23 @@ public class BinaryToDecimal extends Activity {
 			}
 	    	
 	    };
+	    
+	    moreTimer = new CountDownTimer(60000, 5000){
+
+			@Override
+			public void onFinish() {
+				// TODO Auto-generated method stub
+				
+			}
+
+			@Override
+			public void onTick(long millisUntilFinished) {
+				// TODO Auto-generated method stub
+				
+			}
+	    	
+	    };
+	    
 	    clock = (TextView) findViewById(R.id.title);
 	    submitButton = (Button) findViewById(R.id.submitButton);
 	    decimalSolution1 = (TextView) findViewById(R.id.decimalSolution1);
