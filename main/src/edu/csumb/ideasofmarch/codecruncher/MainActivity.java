@@ -1,6 +1,7 @@
 package edu.csumb.ideasofmarch.codecruncher;
 
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
@@ -22,6 +23,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         
+        disabledPolicy();
+        
         newGameButton = (Button) findViewById(R.id.newGameButton);
         continueButton = (Button) findViewById(R.id.continueButton);
         highScoresButton = (Button) findViewById(R.id.highScoresButton);
@@ -31,6 +34,9 @@ public class MainActivity extends Activity {
         continueButton.setOnClickListener(new ContinueButtonListener());
         highScoresButton.setOnClickListener(new HighScoresButtonListener());
         quitButton.setOnClickListener(new QuitButtonListener());
+        
+        //HighScores hs = new HighScores();
+        //hs.saveLocalScore(100, CrunchConstants.BINARY_TO_DECIMAL);
     }
 
 
@@ -99,4 +105,10 @@ public class MainActivity extends Activity {
 		}
     }
     
+    private void disabledPolicy() {
+    	if (android.os.Build.VERSION.SDK_INT > 9) {
+    		StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+    		StrictMode.setThreadPolicy(policy);
+    	}
+    }
 }
