@@ -14,8 +14,6 @@ import android.widget.ToggleButton;
 import android.widget.NumberPicker;
 
 public class DecimalToBinary extends Activity {
-
-public static final int numDigits = 2;
 	
 	private NumberPicker decimalInput;
 	private Button submitButton;
@@ -30,24 +28,28 @@ public static final int numDigits = 2;
 	    
 	    submitButton = (Button) findViewById(R.id.submitButton);
 	    decimalInput = (NumberPicker) findViewById(R.id.decimalInput);
+	    decimalInput.setMaxValue(16);
+	    decimalInput.setMinValue(0);
 	    binarySolution = (TextView) findViewById(R.id.binarySolution);
 
 	    solution = Integer.toBinaryString((int) Math.floor(Math.random()*16));
 	    
-	    binarySolution.setText("" + solution);
+	    binarySolution.setText(solution);
 	    
 	    submitButton.setOnClickListener(new SubmitButtonListener());
 	  }
 
     private class SubmitButtonListener implements OnClickListener {
 		public void onClick(View view) {
+			// Get the string in binary of the user's guess
 			String decimalGuess = getGuess();
-			if(decimalGuess == solution) {
+			
+			if(decimalGuess.equals(solution)) {
 				binarySolution.setTextColor(Color.GREEN);
 				solution = Integer.toBinaryString((int) Math.floor(Math.random()*16));
-				binarySolution.setText("" + solution);
+				binarySolution.setText(solution);
 				binarySolution.setTextColor(Color.BLACK);
-			    //decimalInput.setValue(0);
+			    decimalInput.setValue(0);
 			} else {
 				binarySolution.setTextColor(Color.RED);
 			}
@@ -55,7 +57,7 @@ public static final int numDigits = 2;
     }
    
     public String getGuess() {
-    	String binaryInput = "" + Integer.toBinaryString(decimalInput.getValue());
+    	String binaryInput = Integer.toBinaryString(decimalInput.getValue());
     	
     	return binaryInput;
     }
