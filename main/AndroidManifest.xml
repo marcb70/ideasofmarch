@@ -27,7 +27,11 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="edu.csumb.ideasofmarch.codecruncher.Options"
+            android:name="edu.csumb.ideasofmarch.codecruncher.Settings"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="edu.csumb.ideasofmarch.codecruncher.Help"
             android:label="@string/app_name" >
         </activity>
         <activity

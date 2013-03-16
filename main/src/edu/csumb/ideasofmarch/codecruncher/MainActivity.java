@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -13,7 +14,6 @@ public class MainActivity extends Activity {
 
 	Button newGameButton;
 	Button continueButton;
-	Button optionsButton;
 	Button highScoresButton;
 	Button quitButton;
 	
@@ -24,13 +24,11 @@ public class MainActivity extends Activity {
         
         newGameButton = (Button) findViewById(R.id.newGameButton);
         continueButton = (Button) findViewById(R.id.continueButton);
-        optionsButton = (Button) findViewById(R.id.optionsButton);
         highScoresButton = (Button) findViewById(R.id.highScoresButton);
         quitButton = (Button) findViewById(R.id.quitButton);
         
         newGameButton.setOnClickListener(new NewGameButtonListener());
         continueButton.setOnClickListener(new ContinueButtonListener());
-        optionsButton.setOnClickListener(new OptionsButtonListener());
         highScoresButton.setOnClickListener(new HighScoresButtonListener());
         quitButton.setOnClickListener(new QuitButtonListener());
     }
@@ -41,6 +39,28 @@ public class MainActivity extends Activity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+    
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+        case R.id.action_settings:
+            startSettings();
+            return true;
+        case R.id.action_help:
+            startHelp();
+            return true;
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+    }
+    
+    public void startSettings() {
+    	startActivity(new Intent(this, Settings.class));
+    }
+    
+    public void startHelp() {
+    	startActivity(new Intent(this, Help.class));
     }
     
     private class NewGameButtonListener implements OnClickListener {
@@ -61,16 +81,6 @@ public class MainActivity extends Activity {
     
     public void startGame() {
     	startActivity(new Intent(this, BinaryToDecimal.class));
-    }
-    
-    private class OptionsButtonListener implements OnClickListener {
-		public void onClick(View view) {
-			startOptions();
-		}
-    }
-    
-    public void startOptions() {
-    	startActivity(new Intent(this, Options.class));
     }
     
     private class HighScoresButtonListener implements OnClickListener {
