@@ -48,6 +48,13 @@ public class BinaryToDecimal extends Activity {
 			int decimalGuess = convertBinarytoDecimal(binaryInput);
 			if(decimalGuess == solution) {
 				decimalSolution.setTextColor(Color.GREEN);
+				solution = (int) Math.floor(Math.random()*16);
+			    decimalSolution.setText("" + solution);
+			    decimalSolution.setTextColor(Color.BLACK);
+			    digits[0].setChecked(false);
+			    digits[1].setChecked(false);
+			    digits[2].setChecked(false);
+			    digits[3].setChecked(false);
 			} else {
 				decimalSolution.setTextColor(Color.RED);
 			}
