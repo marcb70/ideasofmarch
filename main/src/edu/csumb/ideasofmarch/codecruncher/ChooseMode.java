@@ -9,6 +9,7 @@ import android.widget.Button;
 
 public class ChooseMode extends Activity {
 	Button binaryToDecimal;
+	Button decimalToBinary;
 	
 	@Override
 	  public void onCreate(Bundle savedInstanceState) {
@@ -17,6 +18,9 @@ public class ChooseMode extends Activity {
 	    
 	    binaryToDecimal = (Button) findViewById(R.id.BinaryToDecimal);
 	    binaryToDecimal.setOnClickListener(new BinaryToDecimalButtonListener());
+	    
+	    decimalToBinary = (Button) findViewById(R.id.DecimalToBinary);
+	    decimalToBinary.setOnClickListener(new DecimalToBinaryButtonListener());
 	  }
 	
 	private class BinaryToDecimalButtonListener implements OnClickListener {
@@ -27,5 +31,15 @@ public class ChooseMode extends Activity {
     
     public void startNewBinaryToDecimal() {
     	startActivity(new Intent(this, BinaryToDecimal.class));
+    }
+    
+    private class DecimalToBinaryButtonListener implements OnClickListener {
+		public void onClick(View view) {
+			startNewBinaryToDecimal();
+		}
+    }
+    
+    public void startNewDecimalToBinary() {
+    	startActivity(new Intent(this, DecimalToBinary.class));
     }
 }
