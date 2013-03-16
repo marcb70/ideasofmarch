@@ -3,6 +3,7 @@ package edu.csumb.ideasofmarch.codecruncher;
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -16,11 +17,41 @@ public class DecimalToBinary extends Activity {
 	private TextView binarySolution;
 	private String solution;
 	
+	private CountDownTimer gameClock;
+	private CountDownTimer moreTimer;
+	private TextView clock;
+	private int score = 0;
+	
 	
 	@Override
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.activity_decimal_to_binary);
+	    
+	    gameClock = new CountDownTimer(60000,1000){
+			@Override
+			public void onFinish() {
+				// TODO Auto-generated method stub
+				clock.setText("Game Over " + score + " points");
+			}
+			@Override
+			public void onTick(long millisUntilFinished) {
+				clock.setText("Decimal to Binary : " + millisUntilFinished / 1000);				
+			}    	
+	    };
+	    
+	    moreTimer = new CountDownTimer(60000, 5000){
+			@Override
+			public void onFinish() {
+				// TODO Auto-generated method stub				
+			}
+			@Override
+			public void onTick(long millisUntilFinished) {
+				// TODO Auto-generated method stub				
+			}	    	
+	    };
+	    
+	    clock = (TextView) findViewById(R.id.title);
 	    
 	    submitButton = (Button) findViewById(R.id.submitButton);
 	    decimalInput = (NumberPicker) findViewById(R.id.decimalInput);
@@ -33,6 +64,7 @@ public class DecimalToBinary extends Activity {
 	    binarySolution.setText(solution);
 	    
 	    submitButton.setOnClickListener(new SubmitButtonListener());
+	    gameClock.start();
 	  }
 
     private class SubmitButtonListener implements OnClickListener {
@@ -41,6 +73,7 @@ public class DecimalToBinary extends Activity {
 			String decimalGuess = getGuess();
 			
 			if(decimalGuess.equals(solution)) {
+				increaseScore(decimalInput.getValue());
 				binarySolution.setTextColor(Color.GREEN);
 				solution = newSolution();
 				binarySolution.setText(solution);
@@ -60,5 +93,9 @@ public class DecimalToBinary extends Activity {
     
     public String newSolution() {
     	return Integer.toBinaryString((int) Math.floor(Math.random()*16));
+    }
+    
+    public void increaseScore(int points){
+    	score += points;
     }
 }
