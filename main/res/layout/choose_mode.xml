@@ -22,15 +22,14 @@
         android:id="@+id/DecimalToBinary"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mode3"
+        android:text="@string/mode4"
         android:background="@drawable/bluebutton" />
 
     <Button
         android:id="@+id/DecimalToHex"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mode4" 
-        android:enabled="false" 
+        android:text="@string/mode3" 
         android:background="@drawable/bluebutton" />
 
     <Button

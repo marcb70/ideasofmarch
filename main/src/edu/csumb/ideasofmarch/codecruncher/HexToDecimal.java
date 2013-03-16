@@ -43,7 +43,7 @@ public class HexToDecimal extends Activity {
 	    
 	    decimalSolution = (TextView) findViewById(R.id.decimalSolution);
 
-	    solution = (int) Math.floor(Math.random()*16);
+	    solution = newSolution();
 	    
 	    decimalSolution.setText("" + solution);
 	    
@@ -57,7 +57,7 @@ public class HexToDecimal extends Activity {
 			
 			if(hexGuess.equals(convertDecimaltoHex(solution))) {
 				decimalSolution.setTextColor(Color.GREEN);
-				solution = (int) Math.floor(Math.random()*16);
+				solution = newSolution();
 				decimalSolution.setText("" + solution);
 				decimalSolution.setTextColor(Color.BLACK);
 			} else {
@@ -68,5 +68,9 @@ public class HexToDecimal extends Activity {
     
     public String convertDecimaltoHex(int decInput) {
     	return Integer.toHexString(decInput);
+    }
+    
+    public int newSolution() {
+    	return (int) Math.floor(Math.random()*16);
     }
 }

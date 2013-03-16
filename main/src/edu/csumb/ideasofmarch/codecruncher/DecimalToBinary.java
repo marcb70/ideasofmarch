@@ -24,11 +24,11 @@ public class DecimalToBinary extends Activity {
 	    
 	    submitButton = (Button) findViewById(R.id.submitButton);
 	    decimalInput = (NumberPicker) findViewById(R.id.decimalInput);
-	    decimalInput.setMaxValue(16);
+	    decimalInput.setMaxValue(15);
 	    decimalInput.setMinValue(0);
 	    binarySolution = (TextView) findViewById(R.id.binarySolution);
 
-	    solution = Integer.toBinaryString((int) Math.floor(Math.random()*16));
+	    solution = newSolution();
 	    
 	    binarySolution.setText(solution);
 	    
@@ -42,7 +42,7 @@ public class DecimalToBinary extends Activity {
 			
 			if(decimalGuess.equals(solution)) {
 				binarySolution.setTextColor(Color.GREEN);
-				solution = Integer.toBinaryString((int) Math.floor(Math.random()*16));
+				solution = newSolution();
 				binarySolution.setText(solution);
 				binarySolution.setTextColor(Color.BLACK);
 			    decimalInput.setValue(0);
@@ -56,5 +56,9 @@ public class DecimalToBinary extends Activity {
     	String binaryInput = Integer.toBinaryString(decimalInput.getValue());
     	
     	return binaryInput;
+    }
+    
+    public String newSolution() {
+    	return Integer.toBinaryString((int) Math.floor(Math.random()*16));
     }
 }

@@ -33,7 +33,7 @@ public class BinaryToDecimal extends Activity {
 	    digits[2] = (ToggleButton) findViewById(R.id.digit3);
 	    digits[3] = (ToggleButton) findViewById(R.id.digit4);
 	    
-	    solution = (int) Math.floor(Math.random()*16);
+	    solution = newSolution();
 	    decimalSolution.setText("" + solution);
 	    
 	    submitButton.setOnClickListener(new SubmitButtonListener());
@@ -45,7 +45,7 @@ public class BinaryToDecimal extends Activity {
 			int decimalGuess = convertBinarytoDecimal(binaryInput);
 			if(decimalGuess == solution) {
 				decimalSolution.setTextColor(Color.GREEN);
-				solution = (int) Math.floor(Math.random()*16);
+				solution = newSolution();
 			    decimalSolution.setText("" + solution);
 			    decimalSolution.setTextColor(Color.BLACK);
 			    digits[0].setChecked(false);
@@ -75,5 +75,9 @@ public class BinaryToDecimal extends Activity {
     
     public int convertBinarytoDecimal(String binaryInput) {
     	return Integer.parseInt(binaryInput, 2);
+    }
+    
+    public int newSolution() {
+    	return (int) Math.floor(Math.random()*16);
     }
 }
