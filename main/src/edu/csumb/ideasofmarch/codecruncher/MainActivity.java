@@ -17,6 +17,7 @@ public class MainActivity extends Activity {
 	Button newGameButton;
 	Button continueButton;
 	Button highScoresButton;
+	Button aboutButton;
 	Button quitButton;
 	
     @Override
@@ -29,11 +30,13 @@ public class MainActivity extends Activity {
         newGameButton = (Button) findViewById(R.id.newGameButton);
         continueButton = (Button) findViewById(R.id.continueButton);
         highScoresButton = (Button) findViewById(R.id.highScoresButton);
+        aboutButton =  (Button) findViewById(R.id.aboutButton);
         quitButton = (Button) findViewById(R.id.quitButton);
         
         newGameButton.setOnClickListener(new NewGameButtonListener());
         continueButton.setOnClickListener(new ContinueButtonListener());
         highScoresButton.setOnClickListener(new HighScoresButtonListener());
+        aboutButton.setOnClickListener(new AboutButtonListener());
         quitButton.setOnClickListener(new QuitButtonListener());
     }
 
@@ -85,6 +88,26 @@ public class MainActivity extends Activity {
     
     public void startGame() {
     	startActivity(new Intent(this, BinaryToDecimal.class));
+    }
+    
+    private class OptionsButtonListener implements OnClickListener {
+		public void onClick(View view) {
+			startOptions();
+		}
+    }
+    
+    public void startOptions() {
+    	startActivity(new Intent(this, Options.class));
+    }
+    
+    private class AboutButtonListener implements OnClickListener {
+		public void onClick(View view) {
+			startAbout();
+		}
+    }
+    
+    public void startAbout() {
+    	startActivity(new Intent(this, About.class));
     }
     
     private class HighScoresButtonListener implements OnClickListener {
