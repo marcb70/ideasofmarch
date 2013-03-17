@@ -11,6 +11,15 @@
     tools:context=".MainActivity"
     android:background="@color/black" >
 
+   <Button
+        android:id="@+id/donateButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/donate_button_text" 
+        android:background="@drawable/graybutton" 
+        android:textColor="@color/white" 
+        android:padding="@dimen/standard_padding" />
+    
     <ImageView
         android:id="@+id/conversion_cruncher"
         android:layout_width="fill_parent"
@@ -26,16 +35,6 @@
         android:background="@drawable/bluebutton" 
         android:textColor="@color/white"
         android:padding="@dimen/standard_padding"/>
-
-    <Button
-        android:id="@+id/continueButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/continue_button_text" 
-        android:enabled="false" 
-        android:background="@drawable/redbutton" 
-        android:textColor="@color/white" 
-        android:padding="@dimen/standard_padding" />
 
     <Button
         android:id="@+id/highScoresButton"
