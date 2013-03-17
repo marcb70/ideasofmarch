@@ -12,6 +12,7 @@ import java.util.Map;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
@@ -31,7 +32,7 @@ import android.widget.EditText;
 public class MainActivity extends Activity {
 
 	Button newGameButton;
-	Button continueButton;
+	Button donateButton;
 	Button highScoresButton;
 	Button quitButton;
 	
@@ -46,12 +47,12 @@ public class MainActivity extends Activity {
         initLocalScores();
         
         newGameButton = (Button) findViewById(R.id.newGameButton);
-        continueButton = (Button) findViewById(R.id.continueButton);
+        donateButton = (Button) findViewById(R.id.donateButton);
         highScoresButton = (Button) findViewById(R.id.highScoresButton);
         quitButton = (Button) findViewById(R.id.quitButton);
         
         newGameButton.setOnClickListener(new NewGameButtonListener());
-        continueButton.setOnClickListener(new ContinueButtonListener());
+        donateButton.setOnClickListener(new DonateButtonListener());
         highScoresButton.setOnClickListener(new HighScoresButtonListener());
         quitButton.setOnClickListener(new QuitButtonListener());
     }
@@ -155,14 +156,20 @@ public class MainActivity extends Activity {
     	startActivity(new Intent(this, ChooseMode.class));
     }
     
-    private class ContinueButtonListener implements OnClickListener {
+    private class DonateButtonListener implements OnClickListener {
 		public void onClick(View view) {
-			startGame();
+			startDonate();
 		}
     }
+
+    private void startDonate() {
+    	goToUrl ("https://milcyber.org/#donate");
+    }
     
-    public void startGame() {
-    	startActivity(new Intent(this, BinaryToDecimal.class));
+    private void goToUrl (String url) {
+        Uri uriUrl = Uri.parse(url);
+        Intent launchBrowser = new Intent(Intent.ACTION_VIEW, uriUrl);
+        startActivity(launchBrowser);
     }
     
     private class HighScoresButtonListener implements OnClickListener {

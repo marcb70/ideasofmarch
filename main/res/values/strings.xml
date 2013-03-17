@@ -7,7 +7,7 @@
     <string name="action_about">About</string>
     <string name="hello_world">Hello world!</string>
     <string name="new_game_button_text">New Game</string>
-    <string name="continue_button_text">Continue</string>
+    <string name="donate_button_text">Donate</string>
     <string name="high_scores_button_text">High Scores</string>
     <string name="quit_button_text">Quit</string>
     <string name="mode1">Binary to Decimal</string>

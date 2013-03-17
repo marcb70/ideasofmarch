@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:background="@color/black" >
 
     <ImageView
         android:id="@+id/imageView1"
@@ -15,6 +16,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/standard_padding"
+        android:textColor="@color/white"
         android:text="We are an association of Soldiers, Sailors, Airmen, Marines, and others interested in the development of the American military cyber profession. Our members are interdisciplinary, as such a diverse set of perspectives is needed to develop cyberspace as an entire domain. Also included in our ranks are other government employees, contractors, academics, members of industry, foreign allies, and private citizens. Go to milcyber.org to learn more." />
 
 </LinearLayout>
