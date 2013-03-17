@@ -1,5 +1,7 @@
 package edu.csumb.ideasofmarch.codecruncher;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,6 +9,7 @@ import android.os.CountDownTimer;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
@@ -23,11 +26,16 @@ public class BinaryToHex extends Activity {
 	private TextView clock;
 	private int solution;
 	private int score = 0;
+	private FourBitHexRow fbr;
+	private ArrayList <FourBitHexRow> rowArray = new ArrayList<FourBitHexRow>();
+	private LinearLayout aLayout;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.binary_to_hex);
+	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
+	    fbr = new FourBitHexRow(aLayout, getBaseContext());
 	    
 	    gameClock = new CountDownTimer(60000,1000){
 			@Override
@@ -37,7 +45,7 @@ public class BinaryToHex extends Activity {
 			}
 			@Override
 			public void onTick(long millisUntilFinished) {
-				clock.setText("Decimal to Binary : " + millisUntilFinished / 1000);				
+				clock.setText("Binary to Hex: " + millisUntilFinished / 1000);				
 			}    	
 	    };
 	    
@@ -48,7 +56,10 @@ public class BinaryToHex extends Activity {
 			}
 			@Override
 			public void onTick(long millisUntilFinished) {
-				// TODO Auto-generated method stub				
+				fbr = new FourBitHexRow(aLayout, getBaseContext());
+				fbr.putNewRow();
+				
+				rowArray.add(fbr);			
 			}	    	
 	    };
 	    
@@ -72,20 +83,19 @@ public class BinaryToHex extends Activity {
 
     private class SubmitButtonListener implements OnClickListener {
 		public void onClick(View view) {
-			binaryInput = getGuess();
-			int decimalGuess = convertBinarytoDecimal(binaryInput);
-			if(decimalGuess == solution) {
-				increaseScore(decimalGuess);
-				hexSolution.setTextColor(Color.GREEN);
-				solution = newSolution();
-			    hexSolution.setText(Integer.toHexString(solution));
-			    hexSolution.setTextColor(Color.BLACK);
-			    digits[0].setChecked(false);
-			    digits[1].setChecked(false);
-			    digits[2].setChecked(false);
-			    digits[3].setChecked(false);
-			} else {
-				hexSolution.setTextColor(Color.RED);
+			if(rowArray.size() != 0){
+				for (int i = 0; i < rowArray.size();i++){
+					if(rowArray.get(i).checkProblem()){
+						score += 10;
+						rowArray.remove(i);
+					}
+				}
+			}
+			if(rowArray.size() == 0){
+				fbr = new FourBitHexRow(aLayout, getBaseContext());
+				fbr.putNewRow();
+				
+				rowArray.add(fbr);
 			}
 		}
     }
