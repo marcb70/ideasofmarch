@@ -23,7 +23,16 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 		t3 = new ToggleButton(aContext);
 		t4 = new ToggleButton(aContext);
 		
-		t1.setBackgroundResource(R.drawable.bluebutton);
+		int resID = (int) Math.floor(Math.random()*3);
+		if(resID == 0) {
+			resID = R.drawable.redbutton;
+		} else if(resID == 1) {
+			resID = R.drawable.yellowbutton;
+		}else {
+			resID = R.drawable.bluebutton;
+		}
+		
+		t1.setBackgroundResource(resID);
 		t1.setText(R.string.binaryInput); 
 		t1.setTextOff("0");
 		t1.setTextOn("1");
@@ -31,21 +40,21 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 		t1.setChecked(false);
 		
 		
-		t2.setBackgroundResource(R.drawable.bluebutton);
+		t2.setBackgroundResource(resID);
 		t2.setText(R.string.binaryInput); 
 		t2.setTextOff("0");
 		t2.setTextOn("1");
 		t2.setTextColor(Color.WHITE);
 		t2.setChecked(false);
 		
-		t3.setBackgroundResource(R.drawable.bluebutton);
+		t3.setBackgroundResource(resID);
 		t3.setText(R.string.binaryInput); 
 		t3.setTextOff("0");
 		t3.setTextOn("1");
 		t3.setTextColor(Color.WHITE);
 		t3.setChecked(false);
 		
-		t4.setBackgroundResource(R.drawable.bluebutton);
+		t4.setBackgroundResource(resID);
 		t4.setText(R.string.binaryInput); 
 		t4.setTextOff("0");
 		t4.setTextOn("1");
