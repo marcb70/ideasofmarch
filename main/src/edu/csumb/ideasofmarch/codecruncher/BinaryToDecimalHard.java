@@ -30,8 +30,8 @@ public class BinaryToDecimalHard extends Activity {
 	private TextView clock;
 	private int solution1;
 	private int score = 0;
-	private FourBitRow fbr;
-	private ArrayList <FourBitRow> rowArray = new ArrayList<FourBitRow>();
+	private EightBitRow ebr;
+	private ArrayList <EightBitRow> rowArray = new ArrayList<EightBitRow>();
 	private LinearLayout aLayout;
 	private Context context;
 	@Override
@@ -40,8 +40,8 @@ public class BinaryToDecimalHard extends Activity {
 	    context = this.getApplicationContext();
 	    setContentView(R.layout.binary_to_decimal);
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
-	    fbr = new FourBitRow(aLayout, getBaseContext());
-	    //rowArray.add(fbr);
+	    ebr = new EightBitRow(aLayout, getBaseContext());
+	    //rowArray.add(ebr);
 	    
 	    gameClock = new CountDownTimer(60000,1000){
 
@@ -77,10 +77,10 @@ public class BinaryToDecimalHard extends Activity {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
-				fbr = new FourBitRow(aLayout, getBaseContext());
-				fbr.putNewRow();
+				ebr = new EightBitRow(aLayout, getBaseContext());
+				ebr.putNewRow();
 				
-				rowArray.add(fbr);
+				rowArray.add(ebr);
 			}
 	    	
 	    };
@@ -118,10 +118,10 @@ public class BinaryToDecimalHard extends Activity {
 				}
 			}
 			if(rowArray.size() == 0){
-				fbr = new FourBitRow(aLayout, getBaseContext());
-				fbr.putNewRow();
+				ebr = new EightBitRow(aLayout, getBaseContext());
+				ebr.putNewRow();
 				
-				rowArray.add(fbr);
+				rowArray.add(ebr);
 			}
 		}
     }
