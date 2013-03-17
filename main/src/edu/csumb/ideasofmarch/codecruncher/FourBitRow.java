@@ -85,7 +85,6 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 		
 		if(intAnswer == randNum){
 			//add sound here
-			rowCount--;
 			removeRow();
 			return true;
 		}else{
@@ -143,6 +142,7 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 		if(rowCount > 0){
 			ll.setVisibility(View.GONE);
 			((ViewGroup) ll.getParent()).removeView(ll);
+			rowCount--;
 			return true;
 		}else{
 			randNum = (int) Math.floor(Math.random()*16);
