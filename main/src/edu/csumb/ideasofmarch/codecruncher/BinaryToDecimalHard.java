@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -34,6 +37,11 @@ public class BinaryToDecimalHard extends Activity {
 	private ArrayList <EightBitRow> rowArray = new ArrayList<EightBitRow>();
 	private LinearLayout aLayout;
 	private Context context;
+	
+	private SoundPool soundPool;
+	private int clapSound, dingSound;
+	boolean loaded = false;
+	
 	@Override
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -42,6 +50,20 @@ public class BinaryToDecimalHard extends Activity {
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 	    ebr = new EightBitRow(aLayout, getBaseContext());
 	    //rowArray.add(ebr);
+	    
+	    this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		// Load the sound
+		soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+			@Override
+			public void onLoadComplete(SoundPool soundPool, int sampleId,
+					int status) {
+				loaded = true;
+			}
+		});
+		
+		clapSound = soundPool.load(this, R.raw.clap, 1);
+		dingSound = soundPool.load(this, R.raw.ding, 1);
 	    
 	    gameClock = new CountDownTimer(60000,1000){
 
@@ -55,6 +77,19 @@ public class BinaryToDecimalHard extends Activity {
 					
 				
 				new ScoresHelper(context).putGlobalHighScore(name, score,CrunchConstants.BINARY_TO_DECIMAL);
+				
+				AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+			      float actualVolume = (float) audioManager
+			          .getStreamVolume(AudioManager.STREAM_MUSIC);
+			      float maxVolume = (float) audioManager
+			          .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+			      float volume = actualVolume / maxVolume;
+			      // Is the sound loaded already?
+			      if (loaded) {
+			        soundPool.play(clapSound, volume, volume, 1, 0, 1f);
+			       
+			      }
+			      
 				}
 			}
 
@@ -114,6 +149,18 @@ public class BinaryToDecimalHard extends Activity {
 					if(rowArray.get(i).checkProblem()){
 						score += 20;
 						rowArray.remove(i);
+						
+						AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+						float actualVolume = (float) audioManager
+								.getStreamVolume(AudioManager.STREAM_MUSIC);
+						float maxVolume = (float) audioManager
+								.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+						float volume = actualVolume / maxVolume;
+						// Is the sound loaded already?
+						if (loaded) {
+							soundPool.play(dingSound, volume, volume, 1, 0, 1f);
+							Log.e("Test", "Played sound");
+						}
 					}
 				}
 			}
