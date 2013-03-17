@@ -4,7 +4,9 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 import org.apache.http.HttpEntity;
@@ -26,7 +28,7 @@ public class HighScores extends Activity {
 
 	private static final int NUM_GLOBAL_SCORES_TO_DISPLAY = 10;
 
-	private SharedPreferences localHighScores;
+	public SharedPreferences localHighScores;
 	private TextView localScoresTextView[];
 	private TextView localTotalTextView;
 	private int localTotal;
@@ -38,18 +40,18 @@ public class HighScores extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.high_scores);
-
+		
+		localHighScores = getSharedPreferences(
+				CrunchConstants.LOCAL_HIGH_SCORES, MODE_PRIVATE);
 		populateLocalScores();
 		populateGlobalScores();
-
-		putGlobalHighScore("KKK", 222);
 	}
 
 	private void populateGlobalScores() {
 		globalHighRanking = new TextView[NUM_GLOBAL_SCORES_TO_DISPLAY];
 		globalNickname = new TextView[NUM_GLOBAL_SCORES_TO_DISPLAY];
 		globalHighScoreNum = new TextView[NUM_GLOBAL_SCORES_TO_DISPLAY];
-		//Map <String, String> globalHighScores = getGlobalHighScores();
+		ArrayList<Map <String, String>> globalHighScores = getGlobalHighScores();
 		
 		for (int i = 0; i < NUM_GLOBAL_SCORES_TO_DISPLAY; i++) {
 			int resID = getResources().getIdentifier(
@@ -60,19 +62,24 @@ public class HighScores extends Activity {
 			resID = getResources().getIdentifier(
 					"globalNickname" + (i + 1), "id", getPackageName());
 			globalNickname[i] = (TextView) findViewById(resID);
-			globalNickname[i].setText("AAA");
 			
 			resID = getResources().getIdentifier(
 					"globalHighScoreNum" + (i + 1), "id", getPackageName());
 			globalHighScoreNum[i] = (TextView) findViewById(resID);
-			globalHighScoreNum[i].setText("0");
+		}
+		
+		int i = 0;
+		Iterator<Map<String, String>> itr = globalHighScores.iterator();
+		while (itr.hasNext() && i < 10) {
+			Map<String, String> entry = (itr.next());
+			globalNickname[i].setText(entry.get("name"));
+			globalHighScoreNum[i].setText(entry.get("score"));
+			i++;
 		}
 	}
 
 	private void populateLocalScores() {
-		localHighScores = getSharedPreferences(
-				CrunchConstants.LOCAL_HIGH_SCORES, MODE_PRIVATE);
-
+		
 		localScoresTextView = new TextView[CrunchConstants.NUM_GAME_MODES];
 		localScoresTextView[0] = (TextView) findViewById(R.id.mode1Score);
 		localScoresTextView[1] = (TextView) findViewById(R.id.mode2Score);
@@ -84,7 +91,7 @@ public class HighScores extends Activity {
 		localTotal = 0;
 
 		for (int i = 0; i < CrunchConstants.NUM_GAME_MODES; i++) {
-			int temp = localHighScores.getInt("mode1HighScore", 0);
+			int temp = localHighScores.getInt("mode" + i + "HighScore", 0);
 			localScoresTextView[i].setText("" + temp);
 			localTotal += temp;
 		}
@@ -92,6 +99,16 @@ public class HighScores extends Activity {
 		localTotalTextView.setText("" + localTotal);
 	}
 
+	public void saveLocalScore(int score, int mode) {
+		saveLocalScoreInternal(score, mode);
+	}
+	
+	private void saveLocalScoreInternal(int score, int mode) {
+		SharedPreferences.Editor localHighScoresEditor = localHighScores.edit();
+		localHighScoresEditor.putInt("mode" + mode + "HighScore", score);
+		localHighScoresEditor.commit();
+	}
+	
 	public void putGlobalHighScore(String name, int score) {
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(CrunchConstants.backendURL + "/?name="
@@ -99,19 +116,19 @@ public class HighScores extends Activity {
 
 		try {
 			httpclient.execute(httpget);
-
 		} catch (Exception e) {
 			Log.v("error",
 					"Exception thrown! Check out calls to 'getGlobalHighScores().'");
 		}
 	}
 
-	public static Map<String,String> getGlobalHighScores() {
+	public static ArrayList<Map<String,String>> getGlobalHighScores() {
 
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet globalScores = new HttpGet(CrunchConstants.backendURL
 				+ "/?hs=1");
-		Map<String, String> globalHighScores = new HashMap<String, String>();
+		
+		ArrayList<Map<String, String>> globalHighScores = null;
 
 		HttpResponse response;
 
@@ -126,7 +143,7 @@ public class HighScores extends Activity {
 				InputStream instream = entity.getContent();
 				String result = convertStreamToString(instream);
 				globalHighScores = new Gson().fromJson(result,
-						new TypeToken<Map<String, String>>() {
+						new TypeToken<ArrayList<Map<String, String>>>() {
 						}.getType());
 				instream.close();
 			}
@@ -134,6 +151,7 @@ public class HighScores extends Activity {
 		} catch (Exception e) {
 			Log.v("error",
 					"Exception thrown! Check out calls to 'getGlobalHighScores().'");
+			e.printStackTrace();
 		}
 
 		return globalHighScores;
