@@ -105,7 +105,8 @@ public class EightBitHexRow extends BinaryToHex implements GameRow {
 		ll.addView(t7);
 		ll.addView(t8);
 		question.setText(Integer.toHexString(randNum));
-		question.setTextColor(Color.BLACK);
+		question.setBackgroundResource(R.drawable.textbox);
+		question.setTextColor(Color.WHITE);
 		ll.addView(question);
 		
 	}
