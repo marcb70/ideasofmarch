@@ -36,7 +36,7 @@
             android:textColor="@color/white" />
     </LinearLayout>
 
-    <Button
+    <!-- <Button
         android:id="@+id/HexToDecimal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
@@ -61,7 +61,7 @@
         android:background="@drawable/redbutton"
         android:padding="@dimen/standard_padding"
         android:text="@string/mode4"
-        android:textColor="@color/white" />
+        android:textColor="@color/white" /> -->
 
     <Button
         android:id="@+id/BinaryToHex"
@@ -81,13 +81,13 @@
         android:text="@string/mode5Hard"
         android:textColor="@color/white" />
 
-    <Button
+   <!--  <Button
         android:id="@+id/HexToBinary"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/yellowbutton"
         android:padding="@dimen/standard_padding"
         android:text="@string/mode6"
-        android:textColor="@color/white" />
+        android:textColor="@color/white" /> -->
 
 </LinearLayout>

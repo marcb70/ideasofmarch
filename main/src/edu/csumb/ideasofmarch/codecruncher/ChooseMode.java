@@ -27,22 +27,22 @@ public class ChooseMode extends Activity {
 	    binaryToDecimalHard = (Button) findViewById(R.id.BinaryToDecimalHard);
 	    binaryToDecimalHard.setOnClickListener(new BinaryToDecimalHardButtonListener());
 	    
-	    hexToDecimal = (Button) findViewById(R.id.HexToDecimal);
+	   /* hexToDecimal = (Button) findViewById(R.id.HexToDecimal);
 	    hexToDecimal.setOnClickListener(new HexToDecimalButtonListener());
 	    
 	    decimalToBinary = (Button) findViewById(R.id.DecimalToBinary);
 	    decimalToBinary.setOnClickListener(new DecimalToBinaryButtonListener());
 	    
 	    decimalToHex = (Button) findViewById(R.id.DecimalToHex);
-	    decimalToHex.setOnClickListener(new DecimalToHexButtonListener());
+	    decimalToHex.setOnClickListener(new DecimalToHexButtonListener());*/
 	    
 	    binaryToHex = (Button) findViewById(R.id.BinaryToHex);
 	    binaryToHex.setOnClickListener(new BinaryToHexButtonListener());
 	    binaryToHexHard = (Button) findViewById(R.id.BinaryToHexHard);
 	    binaryToHexHard.setOnClickListener(new BinaryToHexHardButtonListener());
 	    
-	    hexToBinary = (Button) findViewById(R.id.HexToBinary);
-	    hexToBinary.setOnClickListener(new HexToBinaryButtonListener());
+	   /* hexToBinary = (Button) findViewById(R.id.HexToBinary);
+	    hexToBinary.setOnClickListener(new HexToBinaryButtonListener()); */
 	}
 	
 	private class BinaryToDecimalButtonListener implements OnClickListener {
