@@ -23,12 +23,12 @@ public class BinaryToDecimalHard extends Activity {
 	public static final int numDigits = 4;
 	private CountDownTimer gameClock;
 	private CountDownTimer moreTimer;
-	private ToggleButton digits1[];
-	private String binaryInput;
+//	private ToggleButton digits1[];
+//	private String binaryInput;
 	private Button submitButton;
-	private TextView decimalSolution1;
+//	private TextView decimalSolution1;
 	private TextView clock;
-	private int solution1;
+//	private int solution1;
 	private int score = 0;
 	private EightBitRow ebr;
 	private ArrayList <EightBitRow> rowArray = new ArrayList<EightBitRow>();
@@ -87,9 +87,9 @@ public class BinaryToDecimalHard extends Activity {
 	    
 	    clock = (TextView) findViewById(R.id.title);
 	    submitButton = (Button) findViewById(R.id.submitButton);
-	    decimalSolution1 = (TextView) findViewById(R.id.decimalSolution1);
-	    digits1 = new ToggleButton[numDigits];
-
+	    //decimalSolution1 = (TextView) findViewById(R.id.decimalSolution1);
+	    //digits1 = new ToggleButton[numDigits];
+/*
 	    digits1[0] = (ToggleButton) findViewById(R.id.digit1);
 	    digits1[1] = (ToggleButton) findViewById(R.id.digit2);
 	    digits1[2] = (ToggleButton) findViewById(R.id.digit3);
@@ -97,7 +97,7 @@ public class BinaryToDecimalHard extends Activity {
 	    
 	    solution1 = (int) Math.floor(Math.random()*16);
 	    decimalSolution1.setText("" + solution1);
-	    
+	*/    
 	    submitButton.setOnClickListener(new SubmitButtonListener());
 	    gameClock.start();
 	    moreTimer.start();
@@ -125,7 +125,7 @@ public class BinaryToDecimalHard extends Activity {
 			}
 		}
     }
-   
+/*   
     public String getGuess() {
     	String binaryInput = "";
     	
@@ -144,4 +144,5 @@ public class BinaryToDecimalHard extends Activity {
     public int convertBinarytoDecimal(String binaryInput) {
     	return Integer.parseInt(binaryInput, 2);
     }
+    */
 }
