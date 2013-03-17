@@ -3,6 +3,7 @@ package edu.csumb.ideasofmarch.codecruncher;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -32,9 +33,11 @@ public class BinaryToDecimal extends Activity {
 	private FourBitRow fbr;
 	private ArrayList <FourBitRow> rowArray = new ArrayList<FourBitRow>();
 	private LinearLayout aLayout;
+	private Context context;
 	@Override
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
+	    context = this.getApplicationContext();
 	    setContentView(R.layout.binary_to_decimal);
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 	    fbr = new FourBitRow(aLayout, getBaseContext());
@@ -45,8 +48,14 @@ public class BinaryToDecimal extends Activity {
 			@Override
 			public void onFinish() {
 				// TODO Auto-generated method stub
+				
 				clock.setText("Game Over " + score + " points");
-
+				String name = CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME);
+				if(score > CrunchConstants.myScoresMap.get(CrunchConstants.BINARY_TO_DECIMAL)){
+					
+				
+				new ScoresHelper(context).putGlobalHighScore(name, score,CrunchConstants.BINARY_TO_DECIMAL);
+				}
 			}
 
 			@Override
