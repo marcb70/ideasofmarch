@@ -71,6 +71,15 @@
         android:padding="@dimen/standard_padding"
         android:text="@string/mode5"
         android:textColor="@color/white" />
+    
+    <Button
+        android:id="@+id/BinaryToHexHard"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/bluebutton"
+        android:padding="@dimen/standard_padding"
+        android:text="@string/mode5Hard"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/HexToBinary"
