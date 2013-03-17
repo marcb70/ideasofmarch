@@ -66,19 +66,10 @@ public class BinaryToHex extends Activity {
 	    clock = (TextView) findViewById(R.id.title);
 	    
 	    submitButton = (Button) findViewById(R.id.submitButton);
-	    hexSolution = (TextView) findViewById(R.id.hexSolution);
-	    digits = new ToggleButton[numDigits];
-
-	    digits[0] = (ToggleButton) findViewById(R.id.digit1);
-	    digits[1] = (ToggleButton) findViewById(R.id.digit2);
-	    digits[2] = (ToggleButton) findViewById(R.id.digit3);
-	    digits[3] = (ToggleButton) findViewById(R.id.digit4);
-	    
-	    solution = newSolution();
-	    hexSolution.setText(Integer.toHexString(solution));
 	    
 	    submitButton.setOnClickListener(new SubmitButtonListener());
 	    gameClock.start();
+	    moreTimer.start();
 	}
 
     private class SubmitButtonListener implements OnClickListener {
