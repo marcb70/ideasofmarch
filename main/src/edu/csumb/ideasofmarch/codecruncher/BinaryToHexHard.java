@@ -4,8 +4,12 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -27,6 +31,10 @@ public class BinaryToHexHard extends Activity {
 	private LinearLayout aLayout;
 	private Context context;
 	
+	private SoundPool soundPool;
+	private int clapSound, dingSound;
+	boolean loaded = false;
+	
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    context = this.getApplicationContext();
@@ -34,6 +42,20 @@ public class BinaryToHexHard extends Activity {
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 	    ebr = new EightBitHexRow(aLayout, getBaseContext());
 	    
+	    this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		// Load the sound
+		soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+			@Override
+			public void onLoadComplete(SoundPool soundPool, int sampleId,
+					int status) {
+				loaded = true;
+			}
+		});
+	    
+		clapSound = soundPool.load(this, R.raw.clap, 1);
+		dingSound = soundPool.load(this, R.raw.ding, 1);
+		
 	    gameClock = new CountDownTimer(60000,1000){
 
 			@Override
@@ -42,6 +64,18 @@ public class BinaryToHexHard extends Activity {
 				String name = CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME);
 				if(score > CrunchConstants.myScoresMap.get(CrunchConstants.BINARY_TO_DECIMAL)){
 					new ScoresHelper(context).putGlobalHighScore(name, score,CrunchConstants.BINARY_TO_DECIMAL);
+					
+					AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+				      float actualVolume = (float) audioManager
+				          .getStreamVolume(AudioManager.STREAM_MUSIC);
+				      float maxVolume = (float) audioManager
+				          .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+				      float volume = actualVolume / maxVolume;
+				      // Is the sound loaded already?
+				      if (loaded) {
+				        soundPool.play(clapSound, volume, volume, 1, 0, 1f);
+				       
+				      }
 				}
 			}
 
@@ -80,6 +114,19 @@ public class BinaryToHexHard extends Activity {
 					if(rowArray.get(i).checkProblem()){
 						score += 25;
 						rowArray.remove(i);
+						
+						AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+						float actualVolume = (float) audioManager
+								.getStreamVolume(AudioManager.STREAM_MUSIC);
+						float maxVolume = (float) audioManager
+								.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+						float volume = actualVolume / maxVolume;
+						// Is the sound loaded already?
+						if (loaded) {
+							soundPool.play(dingSound, volume, volume, 1, 0, 1f);
+							Log.e("Test", "Played sound");
+						}
+						
 					}
 				}
 			}
