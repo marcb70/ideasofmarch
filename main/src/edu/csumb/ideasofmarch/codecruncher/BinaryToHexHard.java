@@ -78,7 +78,7 @@ public class BinaryToHexHard extends Activity {
 			if(rowArray.size() != 0){
 				for (int i = 0; i < rowArray.size();i++){
 					if(rowArray.get(i).checkProblem()){
-						score += 5;
+						score += 25;
 						rowArray.remove(i);
 					}
 				}
