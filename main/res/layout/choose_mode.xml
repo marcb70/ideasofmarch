@@ -1,69 +1,84 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/black"
     android:gravity="center"
-    android:orientation="vertical" 
-    android:background="@color/black" >
+    android:orientation="vertical" >
 
     <ImageView
         android:id="@+id/choose_mode_header"
         android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:src="@drawable/choose_mode_header" 
-       	android:layout_weight="1"/>
+        android:layout_weight="1"
+        android:src="@drawable/choose_mode_header" />
 
-    <Button
-        android:id="@+id/BinaryToDecimal"
-        android:layout_width="fill_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mode1"
-        android:background="@drawable/bluebutton"
-        android:textColor="@color/white" 
-        android:padding="@dimen/standard_padding"/>
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/BinaryToDecimal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bluebutton"
+            android:padding="@dimen/standard_padding"
+            android:text="@string/mode1"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/BinaryToDecimalHard"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/yellowbutton"
+            android:padding="@dimen/standard_padding"
+            android:text="@string/mode1Hard"
+            android:textColor="@color/white" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/HexToDecimal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mode2"
         android:background="@drawable/redbutton"
-        android:textColor="@color/white"
-        android:padding="@dimen/standard_padding" />
+        android:padding="@dimen/standard_padding"
+        android:text="@string/mode2"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/DecimalToHex"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mode3"
         android:background="@drawable/yellowbutton"
-        android:textColor="@color/white"
-        android:padding="@dimen/standard_padding" />
+        android:padding="@dimen/standard_padding"
+        android:text="@string/mode3"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/DecimalToBinary"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mode4" 
         android:background="@drawable/redbutton"
-        android:textColor="@color/white"
-        android:padding="@dimen/standard_padding" />
+        android:padding="@dimen/standard_padding"
+        android:text="@string/mode4"
+        android:textColor="@color/white" />
 
     <Button
         android:id="@+id/BinaryToHex"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mode5" 
         android:background="@drawable/bluebutton"
-        android:textColor="@color/white"
-        android:padding="@dimen/standard_padding" />
-    
+        android:padding="@dimen/standard_padding"
+        android:text="@string/mode5"
+        android:textColor="@color/white" />
+
     <Button
         android:id="@+id/HexToBinary"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:text="@string/mode6" 
         android:background="@drawable/yellowbutton"
-        android:textColor="@color/white"
-        android:padding="@dimen/standard_padding" />
+        android:padding="@dimen/standard_padding"
+        android:text="@string/mode6"
+        android:textColor="@color/white" />
 
 </LinearLayout>

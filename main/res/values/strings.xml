@@ -11,6 +11,7 @@
     <string name="high_scores_button_text">High Scores</string>
     <string name="quit_button_text">Quit</string>
     <string name="mode1">Binary to Decimal</string>
+    <string name="mode1Hard">Binary to Decimal Hard</string>
     <string name="mode2">Hex to Decimal</string>
     <string name="mode3">Decimal to Hex</string>
     <string name="mode4">Decimal to Binary</string>
