@@ -76,6 +76,10 @@
             android:name="edu.csumb.ideasofmarch.codecruncher.BinaryToHexHard"
             android:label="@string/title_activity_binary_to_hex_hard" >
         </activity>
+        <activity
+            android:name="edu.csumb.ideasofmarch.codecruncher.GameOver"
+            android:label="@string/title_activity_game_over" >
+        </activity>
     </application>
 
 </manifest>

@@ -32,5 +32,6 @@
     <string name="title_activity_about">About</string>
     <string name="about_button_text">About</string>
     <string name="title_activity_binary_to_hex_hard">BinaryToHexHard</string>
+    <string name="title_activity_game_over">GameOver</string>
 
 </resources>
