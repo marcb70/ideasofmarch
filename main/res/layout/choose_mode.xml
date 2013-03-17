@@ -2,48 +2,68 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:gravity="center"
-    android:orientation="vertical" >
+    android:orientation="vertical" 
+    android:background="@color/black" >
+
+    <ImageView
+        android:id="@+id/choose_mode_header"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:src="@drawable/choose_mode_header" 
+       	android:layout_weight="1"/>
 
     <Button
         android:id="@+id/BinaryToDecimal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/mode1"
-        android:background="@drawable/bluebutton" />
+        android:background="@drawable/bluebutton"
+        android:textColor="@color/white" 
+        android:padding="@dimen/standard_padding"/>
 
     <Button
         android:id="@+id/HexToDecimal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/mode2"
-        android:background="@drawable/bluebutton" />
+        android:background="@drawable/redbutton"
+        android:textColor="@color/white"
+        android:padding="@dimen/standard_padding" />
 
     <Button
         android:id="@+id/DecimalToHex"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/mode3"
-        android:background="@drawable/bluebutton" />
+        android:background="@drawable/yellowbutton"
+        android:textColor="@color/white"
+        android:padding="@dimen/standard_padding" />
 
     <Button
         android:id="@+id/DecimalToBinary"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/mode4" 
-        android:background="@drawable/bluebutton" />
+        android:background="@drawable/redbutton"
+        android:textColor="@color/white"
+        android:padding="@dimen/standard_padding" />
 
     <Button
         android:id="@+id/BinaryToHex"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/mode5" 
-        android:background="@drawable/bluebutton" />
+        android:background="@drawable/bluebutton"
+        android:textColor="@color/white"
+        android:padding="@dimen/standard_padding" />
     
     <Button
         android:id="@+id/HexToBinary"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:text="@string/mode6" 
-        android:background="@drawable/bluebutton" />
+        android:background="@drawable/yellowbutton"
+        android:textColor="@color/white"
+        android:padding="@dimen/standard_padding" />
 
 </LinearLayout>
