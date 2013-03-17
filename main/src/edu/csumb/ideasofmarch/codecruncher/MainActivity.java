@@ -1,5 +1,17 @@
 package edu.csumb.ideasofmarch.codecruncher;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.HashMap;
+import java.util.Map;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
 import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
@@ -26,6 +38,8 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         
         disabledPolicy();
+        initLocalPreferences();
+        initLocalScores();
         
         newGameButton = (Button) findViewById(R.id.newGameButton);
         continueButton = (Button) findViewById(R.id.continueButton);
@@ -45,6 +59,7 @@ public class MainActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+     
         return true;
     }
     
@@ -123,4 +138,108 @@ public class MainActivity extends Activity {
     		StrictMode.setThreadPolicy(policy);
     	}
     }
+    
+
+	
+	
+
+	/**
+	 * Eats file saved local information
+	 */
+	private void initLocalScores() {
+		try {
+
+			InputStream is = openFileInput(CrunchConstants.SCORES_FILENAME);
+
+			final Gson gson = new Gson();
+			final BufferedReader reader = new BufferedReader(
+					new InputStreamReader(is));
+
+			CrunchConstants.myScoresMap = gson.fromJson(reader,
+					new TypeToken<Map<Integer, Integer>>() {
+					}.getType());
+			
+			is.close();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.v("error", "died in get assets init local high scores", e);
+
+			Map<Integer, Integer> myTemporaryMap = new HashMap<Integer, Integer>();
+
+			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_BINARY, 0);
+			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_HEX, 0);
+			myTemporaryMap.put(CrunchConstants.HEX_TO_BINARY, 0);
+			myTemporaryMap.put(CrunchConstants.HEX_TO_DECIMAL, 0);
+			myTemporaryMap.put(CrunchConstants.BINARY_TO_DECIMAL, 0);
+			myTemporaryMap.put(CrunchConstants.BINARY_TO_HEX, 0);
+
+			CrunchConstants.myScoresMap = myTemporaryMap;
+		}
+		
+		try {
+			FileOutputStream fos = openFileOutput(CrunchConstants.SCORES_FILENAME, MODE_PRIVATE);
+			
+			fos.write(new Gson().toJson(CrunchConstants.myScoresMap).getBytes());
+			fos.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	
+
+		
+	}
+	
+	public void initLocalPreferences(){
+		try {
+
+			InputStream is = openFileInput(CrunchConstants.PREFERENCES_FILENAME);
+
+			final Gson gson = new Gson();
+			final BufferedReader reader = new BufferedReader(
+					new InputStreamReader(is));
+
+			CrunchConstants.myPreferencesMap = gson.fromJson(reader,
+					new TypeToken<Map<String, String>>() {
+					}.getType());
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			Log.v("error", "died in get assets init local high scores", e);
+
+			Map<String, String> myTemporaryMap = new HashMap<String, String>();
+
+			//Update this to ask user for input to add to file.
+			myTemporaryMap.put(CrunchConstants.JSON_NAME, "XXX");
+			
+			CrunchConstants.myPreferencesMap = myTemporaryMap;
+		}
+
+
+		
+		//Successfully init 
+		
+		
+		try {
+			FileOutputStream fos = openFileOutput(CrunchConstants.PREFERENCES_FILENAME, MODE_PRIVATE);
+			
+			fos.write(new Gson().toJson(CrunchConstants.myPreferencesMap).getBytes());
+			fos.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	
+	}
+	
 }
