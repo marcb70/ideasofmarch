@@ -2,6 +2,8 @@ package edu.csumb.ideasofmarch.codecruncher;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -9,16 +11,17 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 	
 	static int rowCount = 0;
 	private LinearLayout pll,ll;
-	private int solution;
+	private int solution, randNum;
 	private TextView question;
-	
+	private ToggleButton t1,t2,t3,t4;
 	public FourBitRow(LinearLayout aLayout, Context aContext) {
-		
+		pll = aLayout;
+		randNum = (int) Math.floor(Math.random()*16);	
 		question = new TextView(aContext);
-		ToggleButton t1 = new ToggleButton(aContext);
-		ToggleButton t2 = new ToggleButton(aContext);
-		ToggleButton t3 = new ToggleButton(aContext);
-		ToggleButton t4 = new ToggleButton(aContext);
+		t1 = new ToggleButton(aContext);
+		t2 = new ToggleButton(aContext);
+		t3 = new ToggleButton(aContext);
+		t4 = new ToggleButton(aContext);
 		
 		t1.setBackgroundResource(R.drawable.bluebutton);
 		t1.setText(R.string.binaryInput); 
@@ -48,21 +51,16 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 		t4.setTextOn("1");
 		t4.setTextColor(Color.BLACK);
 		t4.setChecked(false);
-/*		 android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:background="@drawable/bluetoggle"
-	                android:text="@string/binaryInput"
-	                android:textOff="0"
-	                android:textOn="1"*/
-		//LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, LayoutParams.);
+		
 		ll = new LinearLayout(aContext);
 		ll.addView(t1);
 		ll.addView(t2); 
 		ll.addView(t3); 
 		ll.addView(t4);
-		question.setText("test");
+		question.setText("" + randNum);
+		question.setTextColor(Color.BLACK);
 		ll.addView(question);
-		aLayout.addView(ll);
+		
 	}
 
 	@Override
@@ -71,6 +69,7 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 		if(rowCount < 8){
 			
 			rowCount++;
+			pll.addView(ll);
 			return true;
 			
 		}else{
@@ -81,20 +80,74 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 
 	@Override
 	public boolean checkProblem() {
+		String answer = getGuess();
+		int intAnswer = Integer.parseInt(answer, 2);
 		
-		// TODO Auto-generated method stub
-		return false;
+		if(intAnswer == randNum){
+			//add sound here
+			removeRow();
+			return true;
+		}else{
+			
+			question.setTextColor(Color.RED);
+			return false;
+		}
 	}
+		
+	
+    public String getGuess() {
+    	String binaryInput = "";
+    	
+    	if(t1.isChecked()){
+    		
+    		binaryInput += "1";
+    		
+    	}else{
+    		
+    		binaryInput += "0";
+    	}
+    	
+    	if(t2.isChecked()){
+    		
+    		binaryInput += "1";
+    		
+    	}else{
+    		
+    		binaryInput += "0";
+    	}
+    	
+    	if(t3.isChecked()){
+    		
+    		binaryInput += "1";
+    		
+    	}else{
+    		
+    		binaryInput += "0";
+    	}
+    	
+    	if(t4.isChecked()){
+    		
+    		binaryInput += "1";
+    		
+    	}else{
+    		
+    		binaryInput += "0";
+    	}
+    	
+    	return binaryInput;
+    }
 
 	@Override
 	public boolean removeRow() {
-		if(rowCount > 1){
-			
-			
+		if(rowCount > 0){
+			ll.setVisibility(View.GONE);
+			((ViewGroup) ll.getParent()).removeView(ll);
 			return true;
-		}
-		// TODO Auto-generated method stub
+		}else{
+			randNum = (int) Math.floor(Math.random()*16);
+			question.setText("" + randNum);
 		return false;
+		}
 	}
 
 }

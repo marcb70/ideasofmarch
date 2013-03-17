@@ -1,5 +1,7 @@
 package edu.csumb.ideasofmarch.codecruncher;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -27,11 +29,17 @@ public class BinaryToDecimal extends Activity {
 	private TextView clock;
 	private int solution1;
 	private int score = 0;
-	
+	private FourBitRow fbr;
+	private ArrayList <FourBitRow> rowArray = new ArrayList<FourBitRow>();
+	private LinearLayout aLayout;
 	@Override
 	  public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.binary_to_decimal);
+	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
+	    fbr = new FourBitRow(aLayout, getBaseContext());
+	    //rowArray.add(fbr);
+	    
 	    gameClock = new CountDownTimer(60000,1000){
 
 			@Override
@@ -60,7 +68,10 @@ public class BinaryToDecimal extends Activity {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
+				fbr = new FourBitRow(aLayout, getBaseContext());
+				fbr.putNewRow();
 				
+				rowArray.add(fbr);
 			}
 	    	
 	    };
@@ -80,12 +91,30 @@ public class BinaryToDecimal extends Activity {
 	    
 	    submitButton.setOnClickListener(new SubmitButtonListener());
 	    gameClock.start();
+	    moreTimer.start();
+	    
 	  }
 
     private class SubmitButtonListener implements OnClickListener {
 		public void onClick(View view) {
-			binaryInput = getGuess();
-			int decimalGuess = convertBinarytoDecimal(binaryInput);
+		//	binaryInput = getGuess();
+		//	int decimalGuess = convertBinarytoDecimal(binaryInput);
+			
+			
+			for (int i = 0; i < rowArray.size();i++){
+				if(rowArray.get(i).checkProblem()){
+					rowArray.remove(i);
+					
+				}
+				
+			}
+			if(rowArray.size() == 0){
+				fbr = new FourBitRow(aLayout, getBaseContext());
+				fbr.putNewRow();
+				
+				rowArray.add(fbr);
+			}
+		/*	
 			if(decimalGuess == solution1) {
 				decimalSolution1.setTextColor(Color.GREEN);
 				solution1 = (int) Math.floor(Math.random()*16);
@@ -96,11 +125,11 @@ public class BinaryToDecimal extends Activity {
 			    digits1[2].setChecked(false);
 			    digits1[3].setChecked(false);
 			    score += decimalGuess;
-			    LinearLayout aLayout = (LinearLayout) findViewById(R.id.mainLayout);
-			    FourBitRow fbr = new FourBitRow(aLayout, getBaseContext());
+			    
+			    
 			} else {
 				decimalSolution1.setTextColor(Color.RED);
-			}
+			}*/
 		}
     }
    
