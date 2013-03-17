@@ -210,4 +210,7 @@ public class EightBitHexRow extends BinaryToHex implements GameRow {
 		return randNum;
 	}
 
+	public void resetRowCount(){
+		rowCount = 0;
+	}
 }

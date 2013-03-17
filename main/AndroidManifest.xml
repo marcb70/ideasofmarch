@@ -75,7 +75,7 @@
         </activity>
         <activity
             android:name="edu.csumb.ideasofmarch.codecruncher.BinaryToHexHard"
-            android:label="@string/title_activity_binary_to_hex_hard" 
+            android:label="@string/title_activity_binary_to_hex_hard"
             android:screenOrientation="landscape" >
         </activity>
         <activity

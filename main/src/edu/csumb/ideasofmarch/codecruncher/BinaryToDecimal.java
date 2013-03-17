@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.media.SoundPool.OnLoadCompleteListener;
@@ -34,7 +35,7 @@ public class BinaryToDecimal extends Activity {
 	private Context context;
 
 	private SoundPool soundPool;
-	private int clapSound, dingSound;
+	private int dingSound;
 	boolean loaded = false;
 
 	@Override
@@ -57,7 +58,6 @@ public class BinaryToDecimal extends Activity {
 			}
 		});
 
-		clapSound = soundPool.load(this, R.raw.clap, 1);
 		dingSound = soundPool.load(this, R.raw.ding, 1);
 
 		gameClock = new CountDownTimer(60000, 1000) {
@@ -65,28 +65,12 @@ public class BinaryToDecimal extends Activity {
 			@Override
 			public void onFinish() {
 				// TODO Auto-generated method stub
-
-				clock.setText("Game Over " + score + " points");
-				String name = CrunchConstants.myPreferencesMap
-						.get(CrunchConstants.JSON_NAME);
-				if (score > CrunchConstants.myScoresMap
-						.get(CrunchConstants.BINARY_TO_DECIMAL)) {
-
-					new ScoresHelper(context).putGlobalHighScore(name, score,
-							CrunchConstants.BINARY_TO_DECIMAL);
-					
-					AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-				      float actualVolume = (float) audioManager
-				          .getStreamVolume(AudioManager.STREAM_MUSIC);
-				      float maxVolume = (float) audioManager
-				          .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-				      float volume = actualVolume / maxVolume;
-				      // Is the sound loaded already?
-				      if (loaded) {
-				        soundPool.play(clapSound, volume, volume, 1, 0, 1f);
-				       
-				      }
-				}
+				fbr.resetRowCount();
+				Intent intent = new Intent(getBaseContext(), GameOver.class);
+				intent.putExtra("GAME_TAG_CODE", CrunchConstants.BINARY_TO_DECIMAL);
+				intent.putExtra("GAME_SCORE", score);
+				startActivity(intent);  
+				finish();
 			}
 
 			@Override

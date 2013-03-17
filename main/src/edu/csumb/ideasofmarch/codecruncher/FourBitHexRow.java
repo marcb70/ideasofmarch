@@ -165,4 +165,7 @@ public class FourBitHexRow extends BinaryToHex implements GameRow {
 		return randNum;
 	}
 
+	public void resetRowCount(){
+		rowCount = 0;
+	}
 }

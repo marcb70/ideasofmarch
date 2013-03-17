@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
@@ -66,25 +67,12 @@ public class BinaryToHex extends Activity {
 			@Override
 			public void onFinish() {
 				// TODO Auto-generated method stub
-				clock.setText("Game Over " + score + " points");
-				String name = CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME);
-				if(score > CrunchConstants.myScoresMap.get(CrunchConstants.BINARY_TO_HEX)){
-					
-				
-				new ScoresHelper(context).putGlobalHighScore(name, score,CrunchConstants.BINARY_TO_HEX);
-				AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-			      float actualVolume = (float) audioManager
-			          .getStreamVolume(AudioManager.STREAM_MUSIC);
-			      float maxVolume = (float) audioManager
-			          .getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-			      float volume = actualVolume / maxVolume;
-			      // Is the sound loaded already?
-			      if (loaded) {
-			        soundPool.play(clapSound, volume, volume, 1, 0, 1f);
-			       
-			      }
-				
-				}
+				fbr.resetRowCount();
+				Intent intent = new Intent(getBaseContext(), GameOver.class);
+				intent.putExtra("GAME_TAG_CODE", CrunchConstants.BINARY_TO_HEX);
+				intent.putExtra("GAME_SCORE", score);
+				startActivity(intent); 
+				finish();
 			}
 			@Override
 			public void onTick(long millisUntilFinished) {

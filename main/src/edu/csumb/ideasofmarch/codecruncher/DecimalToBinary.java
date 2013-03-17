@@ -1,6 +1,7 @@
 package edu.csumb.ideasofmarch.codecruncher;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -43,7 +44,11 @@ public class DecimalToBinary extends Activity {
 	    moreTimer = new CountDownTimer(60000, 5000){
 			@Override
 			public void onFinish() {
-				// TODO Auto-generated method stub				
+				Intent intent = new Intent(getBaseContext(), GameOver.class);
+				intent.putExtra("GAME_TAG_CODE", CrunchConstants.DECIMAL_TO_BINARY);
+				intent.putExtra("GAME_SCORE", score);
+				startActivity(intent);		
+				finish();
 			}
 			@Override
 			public void onTick(long millisUntilFinished) {

@@ -1,6 +1,7 @@
 package edu.csumb.ideasofmarch.codecruncher;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -31,8 +32,11 @@ public class HexToBinary extends Activity {
 	    gameClock = new CountDownTimer(60000,1000){
 			@Override
 			public void onFinish() {
-				// TODO Auto-generated method stub
-				clock.setText("Game Over " + score + " points");
+				Intent intent = new Intent(getBaseContext(), GameOver.class);
+				intent.putExtra("GAME_TAG_CODE", CrunchConstants.HEX_TO_BINARY);
+				intent.putExtra("GAME_SCORE", score);
+				startActivity(intent);
+				finish();
 			}
 			@Override
 			public void onTick(long millisUntilFinished) {

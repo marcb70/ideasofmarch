@@ -167,5 +167,8 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 	public int score(){
 		return randNum;
 	}
-
+	
+	public void resetRowCount(){
+		rowCount = 0;
+	}
 }

@@ -240,4 +240,7 @@ public class EightBitRow extends BinaryToDecimal implements GameRow {
 		return randNum;
 	}
 
+	public void resetRowCount(){
+		rowCount = 0;
+	}
 }
