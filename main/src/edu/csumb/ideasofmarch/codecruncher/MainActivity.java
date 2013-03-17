@@ -17,7 +17,6 @@ public class MainActivity extends Activity {
 	Button newGameButton;
 	Button continueButton;
 	Button highScoresButton;
-	Button aboutButton;
 	Button quitButton;
 	
     @Override
@@ -30,13 +29,11 @@ public class MainActivity extends Activity {
         newGameButton = (Button) findViewById(R.id.newGameButton);
         continueButton = (Button) findViewById(R.id.continueButton);
         highScoresButton = (Button) findViewById(R.id.highScoresButton);
-        aboutButton =  (Button) findViewById(R.id.aboutButton);
         quitButton = (Button) findViewById(R.id.quitButton);
         
         newGameButton.setOnClickListener(new NewGameButtonListener());
         continueButton.setOnClickListener(new ContinueButtonListener());
         highScoresButton.setOnClickListener(new HighScoresButtonListener());
-        aboutButton.setOnClickListener(new AboutButtonListener());
         quitButton.setOnClickListener(new QuitButtonListener());
     }
 
@@ -57,6 +54,9 @@ public class MainActivity extends Activity {
         case R.id.action_help:
             startHelp();
             return true;
+        case R.id.action_about:
+        	startAbout();
+        	return true;
         default:
             return super.onOptionsItemSelected(item);
         }
@@ -68,6 +68,10 @@ public class MainActivity extends Activity {
     
     public void startHelp() {
     	startActivity(new Intent(this, Help.class));
+    }
+    
+    public void startAbout() {
+    	startActivity(new Intent(this, About.class));
     }
     
     private class NewGameButtonListener implements OnClickListener {
@@ -90,17 +94,6 @@ public class MainActivity extends Activity {
     	startActivity(new Intent(this, BinaryToDecimal.class));
     }
     
-    private class AboutButtonListener implements OnClickListener {
-		public void onClick(View view) {
-			startAbout();
-		}
-    }
-    
-    public void startAbout() {
-    	startActivity(new Intent(this, About.class));
-    }
-    
-
     private class HighScoresButtonListener implements OnClickListener {
 		public void onClick(View view) {
 			startHighScores();

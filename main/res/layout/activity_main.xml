@@ -39,15 +39,6 @@
         android:text="@string/high_scores_button_text" 
         android:background="@drawable/bluebutton" />
 
-    
-    
-    <Button
-        android:id="@+id/aboutButton"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/about_button_text" 
-        android:background="@drawable/bluebutton" />
-
     <Button
         android:id="@+id/quitButton"
         android:layout_width="fill_parent"
