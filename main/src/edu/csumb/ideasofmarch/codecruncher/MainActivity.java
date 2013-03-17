@@ -90,17 +90,6 @@ public class MainActivity extends Activity {
     	startActivity(new Intent(this, BinaryToDecimal.class));
     }
     
-
-    private class OptionsButtonListener implements OnClickListener {
-		public void onClick(View view) {
-			startOptions();
-		}
-    }
-    
-    public void startOptions() {
-    	startActivity(new Intent(this, Options.class));
-    }
-    
     private class AboutButtonListener implements OnClickListener {
 		public void onClick(View view) {
 			startAbout();
