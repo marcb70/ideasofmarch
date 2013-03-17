@@ -66,8 +66,12 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 		ll.addView(t2); 
 		ll.addView(t3); 
 		ll.addView(t4);
+		
 		question.setText("" + randNum);
-		question.setTextColor(Color.BLACK);
+		question.setTextColor(Color.WHITE);
+		question.setTextSize(20);
+		question.setBackgroundResource(R.drawable.textbox);
+		
 		ll.addView(question);
 		
 	}
