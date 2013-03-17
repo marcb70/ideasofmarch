@@ -1,6 +1,8 @@
 package edu.csumb.ideasofmarch.codecruncher;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -40,34 +42,40 @@ public class HighScores extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.high_scores);
-		
+
 		localHighScores = getSharedPreferences(
 				CrunchConstants.LOCAL_HIGH_SCORES, MODE_PRIVATE);
 		populateLocalScores();
 		populateGlobalScores();
+		
+		for(int i = 1; i <= CrunchConstants.NUM_GAME_MODES; i++){
+			putGlobalHighScore("JLC", CrunchConstants.myScoresMap.get(i) + i, i);
+		}
+	
+
 	}
 
 	private void populateGlobalScores() {
 		globalHighRanking = new TextView[NUM_GLOBAL_SCORES_TO_DISPLAY];
 		globalNickname = new TextView[NUM_GLOBAL_SCORES_TO_DISPLAY];
 		globalHighScoreNum = new TextView[NUM_GLOBAL_SCORES_TO_DISPLAY];
-		ArrayList<Map <String, String>> globalHighScores = getGlobalHighScores();
-		
+		ArrayList<Map<String, String>> globalHighScores = getGlobalHighScores();
+
 		for (int i = 0; i < NUM_GLOBAL_SCORES_TO_DISPLAY; i++) {
 			int resID = getResources().getIdentifier(
 					"globalHighRanking" + (i + 1), "id", getPackageName());
 			globalHighRanking[i] = (TextView) findViewById(resID);
 			globalHighRanking[i].setText("" + (i + 1) + ".");
-			
-			resID = getResources().getIdentifier(
-					"globalNickname" + (i + 1), "id", getPackageName());
+
+			resID = getResources().getIdentifier("globalNickname" + (i + 1),
+					"id", getPackageName());
 			globalNickname[i] = (TextView) findViewById(resID);
-			
+
 			resID = getResources().getIdentifier(
 					"globalHighScoreNum" + (i + 1), "id", getPackageName());
 			globalHighScoreNum[i] = (TextView) findViewById(resID);
 		}
-		
+
 		int i = 0;
 		Iterator<Map<String, String>> itr = globalHighScores.iterator();
 		while (itr.hasNext() && i < 10) {
@@ -79,7 +87,7 @@ public class HighScores extends Activity {
 	}
 
 	private void populateLocalScores() {
-		
+
 		localScoresTextView = new TextView[CrunchConstants.NUM_GAME_MODES];
 		localScoresTextView[0] = (TextView) findViewById(R.id.mode1Score);
 		localScoresTextView[1] = (TextView) findViewById(R.id.mode2Score);
@@ -89,23 +97,32 @@ public class HighScores extends Activity {
 		localScoresTextView[5] = (TextView) findViewById(R.id.mode6Score);
 		localTotalTextView = (TextView) findViewById(R.id.cumulativeScore);
 		localTotal = 0;
-
+		
+		int score1 = CrunchConstants.myScoresMap.get(Integer.valueOf(1));
+		int score2 = CrunchConstants.myScoresMap.get(2);
+		int score3 = CrunchConstants.myScoresMap.get(3);
+		int score4 = CrunchConstants.myScoresMap.get(4);
+		int score5 = CrunchConstants.myScoresMap.get(5);
+		int score6 = CrunchConstants.myScoresMap.get(6);
+		
 		for (int i = 0; i < CrunchConstants.NUM_GAME_MODES; i++) {
-			int temp = localHighScores.getInt("mode" + i + "HighScore", 0);
-			localScoresTextView[i].setText("" + temp);
-			localTotal += temp;
+			int score = CrunchConstants.myScoresMap.get(i+1);
+			localScoresTextView[i].setText("" + score);
+			localTotal += score;
 		}
 
 		localTotalTextView.setText("" + localTotal);
 	}
-	
+
 	public void saveLocalScore(int score, int mode) {
 		SharedPreferences.Editor localHighScoresEditor = localHighScores.edit();
 		localHighScoresEditor.putInt("mode" + mode + "HighScore", score);
 		localHighScoresEditor.commit();
 	}
-	
-	public void putGlobalHighScore(String name, int score) {
+
+	public void putGlobalHighScore(String name, int score, int constantGameType) {
+		updateLocalScores(score, constantGameType);
+		
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet httpget = new HttpGet(CrunchConstants.backendURL + "/?name="
 				+ name + "&score=" + score);
@@ -116,14 +133,41 @@ public class HighScores extends Activity {
 			Log.v("error",
 					"Exception thrown! Check out calls to 'getGlobalHighScores().'");
 		}
+		
 	}
+	
+	private void updateLocalScores(int score, int constantGameType){
+		
+		int current = CrunchConstants.myScoresMap.get(constantGameType);
+		if (score > current){
+			CrunchConstants.myScoresMap.remove(constantGameType);
+			CrunchConstants.myScoresMap.put(constantGameType, score);
+		}
+		
+		try {
+			FileOutputStream fos = openFileOutput(CrunchConstants.SCORES_FILENAME, MODE_PRIVATE);
+			
+			fos.write(new Gson().toJson(CrunchConstants.myScoresMap).getBytes());
+			fos.close();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		populateLocalScores();
+	}
+	
+	
 
-	public static ArrayList<Map<String,String>> getGlobalHighScores() {
+	public static ArrayList<Map<String, String>> getGlobalHighScores() {
 
 		HttpClient httpclient = new DefaultHttpClient();
 		HttpGet globalScores = new HttpGet(CrunchConstants.backendURL
 				+ "/?hs=1");
-		
+
 		ArrayList<Map<String, String>> globalHighScores = null;
 
 		HttpResponse response;
@@ -154,6 +198,12 @@ public class HighScores extends Activity {
 
 	}
 
+	/**
+	 * used by rest get to client
+	 * 
+	 * @param is
+	 * @return
+	 */
 	private static String convertStreamToString(InputStream is) {
 
 		BufferedReader reader = new BufferedReader(new InputStreamReader(is));
@@ -175,5 +225,8 @@ public class HighScores extends Activity {
 		}
 		return sb.toString();
 	}
+	
+	
+	
 
 }
