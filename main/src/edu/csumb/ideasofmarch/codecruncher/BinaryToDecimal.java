@@ -103,11 +103,12 @@ public class BinaryToDecimal extends Activity {
 			if(rowArray.size() != 0){
 				for (int i = 0; i < rowArray.size();i++){
 					if(rowArray.get(i).checkProblem()){
+						score += 5;
 						rowArray.remove(i);
 					}
 				}
 			}
-			else{
+			if(rowArray.size() == 0){
 				fbr = new FourBitRow(aLayout, getBaseContext());
 				fbr.putNewRow();
 				

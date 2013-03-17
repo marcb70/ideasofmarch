@@ -27,7 +27,7 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 		t1.setText(R.string.binaryInput); 
 		t1.setTextOff("0");
 		t1.setTextOn("1");
-		t1.setTextColor(Color.BLACK);
+		t1.setTextColor(Color.WHITE);
 		t1.setChecked(false);
 		
 		
@@ -35,21 +35,21 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 		t2.setText(R.string.binaryInput); 
 		t2.setTextOff("0");
 		t2.setTextOn("1");
-		t2.setTextColor(Color.BLACK);
+		t2.setTextColor(Color.WHITE);
 		t2.setChecked(false);
 		
 		t3.setBackgroundResource(R.drawable.bluebutton);
 		t3.setText(R.string.binaryInput); 
 		t3.setTextOff("0");
 		t3.setTextOn("1");
-		t3.setTextColor(Color.BLACK);
+		t3.setTextColor(Color.WHITE);
 		t3.setChecked(false);
 		
 		t4.setBackgroundResource(R.drawable.bluebutton);
 		t4.setText(R.string.binaryInput); 
 		t4.setTextOff("0");
 		t4.setTextOn("1");
-		t4.setTextColor(Color.BLACK);
+		t4.setTextColor(Color.WHITE);
 		t4.setChecked(false);
 		
 		ll = new LinearLayout(aContext);
@@ -149,6 +149,10 @@ public class FourBitRow extends BinaryToDecimal implements GameRow {
 			question.setText("" + randNum);
 		return false;
 		}
+	}
+	
+	public int score(){
+		return randNum;
 	}
 
 }
