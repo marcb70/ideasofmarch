@@ -1,13 +1,44 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="@color/black"
     android:orientation="vertical" >
 
-    <TextView
-        android:id="@+id/textView1"
+    <ImageView
+        android:id="@+id/help_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Help"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+        android:src="@drawable/help_header" />
+
+    <TextView
+        android:id="@+id/helpText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/standard_padding"
+        android:text="Welcome! To get started, go back and hit the new game button. There are several different game modes to try! Our program is designed to teach people to get comfortable with binary and hexadecimal. If you have never done base conversion before, below are some links to get you started. To get more information on the organization behind this app, check the About screen."
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/link1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:text="https://www.youtube.com/watch?v=ry1hpm1GXVI" />
+    
+    <TextView
+        android:id="@+id/link2"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:text="http://www.youtube.com/watch?v=_97OwCkjh3c" />
+    
+    
+    <TextView
+        android:id="@+id/link3"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="web"
+        android:text="http://www.computerhope.com/binhex.htm" />
 
 </LinearLayout>
