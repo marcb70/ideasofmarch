@@ -100,36 +100,19 @@ public class BinaryToDecimal extends Activity {
 		//	binaryInput = getGuess();
 		//	int decimalGuess = convertBinarytoDecimal(binaryInput);
 			
-			
-			for (int i = 0; i < rowArray.size();i++){
-				if(rowArray.get(i).checkProblem()){
-					rowArray.remove(i);
-					
+			if(rowArray.size() != 0){
+				for (int i = 0; i < rowArray.size();i++){
+					if(rowArray.get(i).checkProblem()){
+						rowArray.remove(i);
+					}
 				}
-				
 			}
-			if(rowArray.size() == 0){
+			else{
 				fbr = new FourBitRow(aLayout, getBaseContext());
 				fbr.putNewRow();
 				
 				rowArray.add(fbr);
 			}
-		/*	
-			if(decimalGuess == solution1) {
-				decimalSolution1.setTextColor(Color.GREEN);
-				solution1 = (int) Math.floor(Math.random()*16);
-			    decimalSolution1.setText("" + solution1);
-			    decimalSolution1.setTextColor(Color.BLACK);
-			    digits1[0].setChecked(false);
-			    digits1[1].setChecked(false);
-			    digits1[2].setChecked(false);
-			    digits1[3].setChecked(false);
-			    score += decimalGuess;
-			    
-			    
-			} else {
-				decimalSolution1.setTextColor(Color.RED);
-			}*/
 		}
     }
    
