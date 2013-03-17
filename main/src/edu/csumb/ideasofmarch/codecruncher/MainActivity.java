@@ -90,8 +90,7 @@ public class MainActivity extends Activity {
     	startActivity(new Intent(this, BinaryToDecimal.class));
     }
     
-<<<<<<< HEAD
-=======
+
     private class OptionsButtonListener implements OnClickListener {
 		public void onClick(View view) {
 			startOptions();
@@ -112,7 +111,7 @@ public class MainActivity extends Activity {
     	startActivity(new Intent(this, About.class));
     }
     
->>>>>>> poema
+
     private class HighScoresButtonListener implements OnClickListener {
 		public void onClick(View view) {
 			startHighScores();
