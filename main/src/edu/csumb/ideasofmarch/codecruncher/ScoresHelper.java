@@ -23,11 +23,25 @@ public class ScoresHelper {
     }
 
 	public void putGlobalHighScore(String name, int score, int constantGameType) {
+		
+		int current = CrunchConstants.myScoresMap.get(constantGameType);
+		if (score <= current){
+			return;
+		}
+		
+		
 		updateLocalScores(score, constantGameType);
 		
+		int totalScores = 0;
+		
+		for(int i = 0; i < CrunchConstants.NUM_GAME_MODES; i++){
+			totalScores += CrunchConstants.myScoresMap.get(i+1);
+		}
+		
 		HttpClient httpclient = new DefaultHttpClient();
+		
 		HttpGet httpget = new HttpGet(CrunchConstants.backendURL + "/?name="
-				+ name + "&score=" + score);
+				+ name + "&score=" + totalScores);
 
 		try {
 			httpclient.execute(httpget);
@@ -39,12 +53,12 @@ public class ScoresHelper {
 	}
 	
 	private void updateLocalScores(int score, int constantGameType){
-		
 		int current = CrunchConstants.myScoresMap.get(constantGameType);
 		if (score > current){
 			CrunchConstants.myScoresMap.remove(constantGameType);
 			CrunchConstants.myScoresMap.put(constantGameType, score);
 		}
+		
 		
 		try {
 			FileOutputStream fos = mContext.openFileOutput(CrunchConstants.SCORES_FILENAME, mContext.MODE_PRIVATE);
