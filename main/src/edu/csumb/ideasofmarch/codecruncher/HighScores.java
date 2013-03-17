@@ -47,12 +47,6 @@ public class HighScores extends Activity {
 				CrunchConstants.LOCAL_HIGH_SCORES, MODE_PRIVATE);
 		populateLocalScores();
 		populateGlobalScores();
-		
-		for(int i = 1; i <= CrunchConstants.NUM_GAME_MODES; i++){
-			putGlobalHighScore("JLC", CrunchConstants.myScoresMap.get(i) + i, i);
-		}
-	
-
 	}
 
 	private void populateGlobalScores() {
@@ -114,51 +108,9 @@ public class HighScores extends Activity {
 		localTotalTextView.setText("" + localTotal);
 	}
 
-	public void saveLocalScore(int score, int mode) {
-		SharedPreferences.Editor localHighScoresEditor = localHighScores.edit();
-		localHighScoresEditor.putInt("mode" + mode + "HighScore", score);
-		localHighScoresEditor.commit();
-	}
 
-	public void putGlobalHighScore(String name, int score, int constantGameType) {
-		updateLocalScores(score, constantGameType);
-		
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpGet httpget = new HttpGet(CrunchConstants.backendURL + "/?name="
-				+ name + "&score=" + score);
-
-		try {
-			httpclient.execute(httpget);
-		} catch (Exception e) {
-			Log.v("error",
-					"Exception thrown! Check out calls to 'getGlobalHighScores().'");
-		}
-		
-	}
 	
-	private void updateLocalScores(int score, int constantGameType){
-		
-		int current = CrunchConstants.myScoresMap.get(constantGameType);
-		if (score > current){
-			CrunchConstants.myScoresMap.remove(constantGameType);
-			CrunchConstants.myScoresMap.put(constantGameType, score);
-		}
-		
-		try {
-			FileOutputStream fos = openFileOutput(CrunchConstants.SCORES_FILENAME, MODE_PRIVATE);
-			
-			fos.write(new Gson().toJson(CrunchConstants.myScoresMap).getBytes());
-			fos.close();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		populateLocalScores();
-	}
+	
 	
 	
 

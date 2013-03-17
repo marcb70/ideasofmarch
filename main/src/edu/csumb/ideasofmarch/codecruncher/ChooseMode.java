@@ -9,6 +9,7 @@ import android.widget.Button;
 
 public class ChooseMode extends Activity {
 	Button binaryToDecimal;
+	Button binaryToDecimalHard;
 	Button decimalToBinary;
 	Button hexToDecimal;
 	Button decimalToHex;
@@ -22,6 +23,8 @@ public class ChooseMode extends Activity {
 	    
 	    binaryToDecimal = (Button) findViewById(R.id.BinaryToDecimal);
 	    binaryToDecimal.setOnClickListener(new BinaryToDecimalButtonListener());
+	    binaryToDecimalHard = (Button) findViewById(R.id.BinaryToDecimalHard);
+	    binaryToDecimalHard.setOnClickListener(new BinaryToDecimalHardButtonListener());
 	    
 	    hexToDecimal = (Button) findViewById(R.id.HexToDecimal);
 	    hexToDecimal.setOnClickListener(new HexToDecimalButtonListener());
@@ -44,9 +47,19 @@ public class ChooseMode extends Activity {
 			startNewBinaryToDecimal();
 		}
     }
-    
-    public void startNewBinaryToDecimal() {
+	
+	public void startNewBinaryToDecimal() {
     	startActivity(new Intent(this, BinaryToDecimal.class));
+    }
+	
+	private class BinaryToDecimalHardButtonListener implements OnClickListener {
+		public void onClick(View view) {
+			startNewBinaryToDecimalHard();
+		}
+    }
+    
+    public void startNewBinaryToDecimalHard() {
+    	startActivity(new Intent(this, BinaryToDecimalHard.class));
     }
     
     private class HexToDecimalButtonListener implements OnClickListener {
