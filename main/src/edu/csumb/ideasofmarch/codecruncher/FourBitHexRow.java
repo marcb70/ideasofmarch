@@ -66,8 +66,9 @@ public class FourBitHexRow extends BinaryToHex implements GameRow {
 		ll.addView(t2); 
 		ll.addView(t3); 
 		ll.addView(t4);
+		question.setBackgroundResource(R.drawable.textbox);
 		question.setText(Integer.toHexString(randNum));
-		question.setTextColor(Color.BLACK);
+		question.setTextColor(Color.WHITE);
 		ll.addView(question);
 		
 	}
