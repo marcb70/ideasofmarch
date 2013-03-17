@@ -28,7 +28,7 @@ public class HighScores extends Activity {
 
 	private static final int NUM_GLOBAL_SCORES_TO_DISPLAY = 10;
 
-	private SharedPreferences localHighScores;
+	public SharedPreferences localHighScores;
 	private TextView localScoresTextView[];
 	private TextView localTotalTextView;
 	private int localTotal;
@@ -40,11 +40,11 @@ public class HighScores extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.high_scores);
-
+		
+		localHighScores = getSharedPreferences(
+				CrunchConstants.LOCAL_HIGH_SCORES, MODE_PRIVATE);
 		populateLocalScores();
 		populateGlobalScores();
-
-		//putGlobalHighScore("KKK", 222);
 	}
 
 	private void populateGlobalScores() {
@@ -79,9 +79,7 @@ public class HighScores extends Activity {
 	}
 
 	private void populateLocalScores() {
-		localHighScores = getSharedPreferences(
-				CrunchConstants.LOCAL_HIGH_SCORES, MODE_PRIVATE);
-
+		
 		localScoresTextView = new TextView[CrunchConstants.NUM_GAME_MODES];
 		localScoresTextView[0] = (TextView) findViewById(R.id.mode1Score);
 		localScoresTextView[1] = (TextView) findViewById(R.id.mode2Score);
@@ -93,7 +91,7 @@ public class HighScores extends Activity {
 		localTotal = 0;
 
 		for (int i = 0; i < CrunchConstants.NUM_GAME_MODES; i++) {
-			int temp = localHighScores.getInt("mode1HighScore", 0);
+			int temp = localHighScores.getInt("mode" + i + "HighScore", 0);
 			localScoresTextView[i].setText("" + temp);
 			localTotal += temp;
 		}
@@ -102,10 +100,13 @@ public class HighScores extends Activity {
 	}
 
 	public void saveLocalScore(int score, int mode) {
-		//localHighScores = getSharedPreferences(CrunchConstants.LOCAL_HIGH_SCORES, MODE_PRIVATE);
-		//SharedPreferences.Editor localHighScoresEditor = localHighScores.edit();
-		//localHighScoresEditor.putInt("mode" + mode + "HighScore", score);
-		//localHighScoresEditor.commit();
+		saveLocalScoreInternal(score, mode);
+	}
+	
+	private void saveLocalScoreInternal(int score, int mode) {
+		SharedPreferences.Editor localHighScoresEditor = localHighScores.edit();
+		localHighScoresEditor.putInt("mode" + mode + "HighScore", score);
+		localHighScoresEditor.commit();
 	}
 	
 	public void putGlobalHighScore(String name, int score) {
