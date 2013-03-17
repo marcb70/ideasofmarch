@@ -3,6 +3,7 @@ package edu.csumb.ideasofmarch.codecruncher;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -29,11 +30,13 @@ public class BinaryToHex extends Activity {
 	private FourBitHexRow fbr;
 	private ArrayList <FourBitHexRow> rowArray = new ArrayList<FourBitHexRow>();
 	private LinearLayout aLayout;
+	private Context context;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.binary_to_hex);
+	    context = this.getApplicationContext();
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 	    fbr = new FourBitHexRow(aLayout, getBaseContext());
 	    
@@ -42,6 +45,12 @@ public class BinaryToHex extends Activity {
 			public void onFinish() {
 				// TODO Auto-generated method stub
 				clock.setText("Game Over " + score + " points");
+				String name = CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME);
+				if(score > CrunchConstants.myScoresMap.get(CrunchConstants.BINARY_TO_HEX)){
+					
+				
+				new ScoresHelper(context).putGlobalHighScore(name, score,CrunchConstants.BINARY_TO_HEX);
+				}
 			}
 			@Override
 			public void onTick(long millisUntilFinished) {
