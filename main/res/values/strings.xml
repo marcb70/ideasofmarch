@@ -26,5 +26,7 @@
     <string name="zero">0</string>
     <string name="globalHighScores">Global High Scores</string>
     <string name="placeholderInitials">AAA</string>
+    <string name="title_activity_about">About</string>
+    <string name="about_button_text">About</string>
 
 </resources>
