@@ -28,7 +28,7 @@ public class HighScores extends Activity {
 
 	private static final int NUM_GLOBAL_SCORES_TO_DISPLAY = 10;
 
-	public SharedPreferences localHighScores;
+	private SharedPreferences localHighScores;
 	private TextView localScoresTextView[];
 	private TextView localTotalTextView;
 	private int localTotal;
@@ -98,12 +98,8 @@ public class HighScores extends Activity {
 
 		localTotalTextView.setText("" + localTotal);
 	}
-
-	public void saveLocalScore(int score, int mode) {
-		saveLocalScoreInternal(score, mode);
-	}
 	
-	private void saveLocalScoreInternal(int score, int mode) {
+	public void saveLocalScore(int score, int mode) {
 		SharedPreferences.Editor localHighScoresEditor = localHighScores.edit();
 		localHighScoresEditor.putInt("mode" + mode + "HighScore", score);
 		localHighScoresEditor.commit();
