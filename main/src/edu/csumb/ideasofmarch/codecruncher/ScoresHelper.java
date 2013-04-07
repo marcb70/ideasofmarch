@@ -24,10 +24,10 @@ public class ScoresHelper {
 
 	public void putGlobalHighScore(String name, int score, int constantGameType) {
 		
-		int current = CrunchConstants.myScoresMap.get(constantGameType);
-		if (score <= current){
-			return;
-		}
+//		int current = CrunchConstants.myScoresMap.get(constantGameType);
+//		if (score <= current){
+//			return;
+//		}
 		
 		
 		updateLocalScores(score, constantGameType);
@@ -57,6 +57,8 @@ public class ScoresHelper {
 		if (score > current){
 			CrunchConstants.myScoresMap.remove(constantGameType);
 			CrunchConstants.myScoresMap.put(constantGameType, score);
+		} else {
+			return;
 		}
 		
 		

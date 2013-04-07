@@ -230,7 +230,13 @@ public class MainActivity extends Activity {
 			myTemporaryMap.put(CrunchConstants.HEX_TO_DECIMAL, 0);
 			myTemporaryMap.put(CrunchConstants.BINARY_TO_DECIMAL, 0);
 			myTemporaryMap.put(CrunchConstants.BINARY_TO_HEX, 0);
-
+			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_BINARY_HARD, 0);
+			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_HEX_HARD, 0);
+			myTemporaryMap.put(CrunchConstants.HEX_TO_BINARY_HARD, 0);
+			myTemporaryMap.put(CrunchConstants.HEX_TO_DECIMAL_HARD, 0);
+			myTemporaryMap.put(CrunchConstants.BINARY_TO_DECIMAL_HARD, 0);
+			myTemporaryMap.put(CrunchConstants.BINARY_TO_HEX_HARD, 0);
+			
 			CrunchConstants.myScoresMap = myTemporaryMap;
 		}
 		

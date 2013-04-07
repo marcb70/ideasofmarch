@@ -16,6 +16,10 @@ public class CrunchConstants {
 	public static final int HEX_TO_BINARY = 6;
 	public static final int BINARY_TO_DECIMAL_HARD = 7;
 	public static final int BINARY_TO_HEX_HARD = 8;
+	public static final int HEX_TO_DECIMAL_HARD = 9;
+	public static final int DECIMAL_TO_HEX_HARD = 10;
+	public static final int DECIMAL_TO_BINARY_HARD = 11;
+	public static final int HEX_TO_BINARY_HARD = 12;
 
 	public static final String JSON_NAME = "savedName";
 	
