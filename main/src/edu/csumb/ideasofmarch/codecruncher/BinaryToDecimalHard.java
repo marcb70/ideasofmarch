@@ -34,8 +34,8 @@ public class BinaryToDecimalHard extends Activity {
 	private TextView clock;
 //	private int solution1;
 	private int score = 0;
-	private EightBitRow ebr;
-	private ArrayList <EightBitRow> rowArray = new ArrayList<EightBitRow>();
+	private BinaryRow ebr;
+	private ArrayList <BinaryRow> rowArray = new ArrayList<BinaryRow>();
 	private LinearLayout aLayout;
 	private Context context;
 	
@@ -49,7 +49,7 @@ public class BinaryToDecimalHard extends Activity {
 	    context = this.getApplicationContext();
 	    setContentView(R.layout.binary_to_decimal);
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
-	    ebr = new EightBitRow(aLayout, getBaseContext());
+	    ebr = new BinaryRow(aLayout, getBaseContext(), 8);
 	    //rowArray.add(ebr);
 	    
 	    this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -98,7 +98,7 @@ public class BinaryToDecimalHard extends Activity {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
-				ebr = new EightBitRow(aLayout, getBaseContext());
+				ebr = new BinaryRow(aLayout, getBaseContext(), 8);
 				ebr.putNewRow();
 				
 				rowArray.add(ebr);
@@ -151,7 +151,7 @@ public class BinaryToDecimalHard extends Activity {
 				}
 			}
 			if(rowArray.size() == 0){
-				ebr = new EightBitRow(aLayout, getBaseContext());
+				ebr = new BinaryRow(aLayout, getBaseContext(), 8);
 				ebr.putNewRow();
 				
 				rowArray.add(ebr);

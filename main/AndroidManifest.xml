@@ -82,6 +82,10 @@
             android:name="edu.csumb.ideasofmarch.codecruncher.GameOver"
             android:label="@string/title_activity_game_over" >
         </activity>
+        <activity
+            android:name="edu.csumb.ideasofmarch.codecruncher.BinaryRow"
+            android:label="@string/title_activity_binary_row" >
+        </activity>
     </application>
 
 </manifest>

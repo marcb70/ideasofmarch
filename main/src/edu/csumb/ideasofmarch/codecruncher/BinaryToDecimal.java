@@ -29,8 +29,8 @@ public class BinaryToDecimal extends Activity {
 	private TextView clock;
 	// private int solution1;
 	private int score = 0;
-	private FourBitRow fbr;
-	private ArrayList<FourBitRow> rowArray = new ArrayList<FourBitRow>();
+	private BinaryRow fbr;
+	private ArrayList<BinaryRow> rowArray = new ArrayList<BinaryRow>();
 	private LinearLayout aLayout;
 	private Context context;
 
@@ -44,7 +44,7 @@ public class BinaryToDecimal extends Activity {
 		context = this.getApplicationContext();
 		setContentView(R.layout.binary_to_decimal);
 		aLayout = (LinearLayout) findViewById(R.id.mainLayout);
-		fbr = new FourBitRow(aLayout, getBaseContext());
+		fbr = new BinaryRow(aLayout, getBaseContext(), 4);
 		// rowArray.add(fbr);
 
 		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -93,7 +93,7 @@ public class BinaryToDecimal extends Activity {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
-				fbr = new FourBitRow(aLayout, getBaseContext());
+				fbr = new BinaryRow(aLayout, getBaseContext(), 4);
 				fbr.putNewRow();
 
 				rowArray.add(fbr);
@@ -148,7 +148,7 @@ public class BinaryToDecimal extends Activity {
 				}
 			}
 			if (rowArray.size() == 0) {
-				fbr = new FourBitRow(aLayout, getBaseContext());
+				fbr = new BinaryRow(aLayout, getBaseContext(),4);
 				fbr.putNewRow();
 
 				rowArray.add(fbr);
