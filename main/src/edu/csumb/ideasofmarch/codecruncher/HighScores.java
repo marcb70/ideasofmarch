@@ -92,17 +92,15 @@ public class HighScores extends Activity {
 		localTotalTextView = (TextView) findViewById(R.id.cumulativeScore);
 		localTotal = 0;
 		
-		int score1 = CrunchConstants.myScoresMap.get(Integer.valueOf(1));
-		int score2 = CrunchConstants.myScoresMap.get(2);
-		int score3 = CrunchConstants.myScoresMap.get(3);
-		int score4 = CrunchConstants.myScoresMap.get(4);
-		int score5 = CrunchConstants.myScoresMap.get(5);
-		int score6 = CrunchConstants.myScoresMap.get(6);
-		
-		for (int i = 0; i < CrunchConstants.NUM_GAME_MODES; i++) {
-			int score = CrunchConstants.myScoresMap.get(i+1);
-			localScoresTextView[i].setText("" + score);
-			localTotal += score;
+		for (int i = 0; i < CrunchConstants.NUM_GAME_MODES/2; i++) {
+			int score = 0;
+			int hardScore = 0;
+			if(CrunchConstants.myScoresMap.containsKey(i+1))
+				score = CrunchConstants.myScoresMap.get(i+1);
+			if(CrunchConstants.myScoresMap.containsKey(i+1 + CrunchConstants.NUM_GAME_MODES))
+				hardScore = CrunchConstants.myScoresMap.get(i+1 + CrunchConstants.NUM_GAME_MODES);
+			localScoresTextView[i].setText("" + score + "/" + hardScore);
+			localTotal += score + hardScore;
 		}
 
 		localTotalTextView.setText("" + localTotal);

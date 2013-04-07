@@ -45,10 +45,13 @@ public class GameOver extends Activity {
 		String name = CrunchConstants.myPreferencesMap
 				.get(CrunchConstants.JSON_NAME);
 
-		if (score > CrunchConstants.myScoresMap.get(GAME_TAG)) {
-			new ScoresHelper(getBaseContext()).putGlobalHighScore(name, score,
-					GAME_TAG);
+		//Attempt to update the score with new name.
+		new ScoresHelper(getBaseContext()).putGlobalHighScore(name, score,
+				GAME_TAG);
 
+		//play sound if the score is better than personal best
+		if (score > CrunchConstants.myScoresMap.get(GAME_TAG)) {
+			
 			AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
 			float actualVolume = (float) audioManager
 					.getStreamVolume(AudioManager.STREAM_MUSIC);
