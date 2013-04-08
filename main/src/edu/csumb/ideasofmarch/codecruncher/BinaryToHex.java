@@ -32,8 +32,8 @@ public class BinaryToHex extends Activity {
 	private TextView clock;
 	private int solution;
 	private int score = 0;
-	private FourBitHexRow fbr;
-	private ArrayList <FourBitHexRow> rowArray = new ArrayList<FourBitHexRow>();
+	private BinaryRow fbr;
+	private ArrayList <BinaryRow> rowArray = new ArrayList<BinaryRow>();
 	private LinearLayout aLayout;
 	private Context context;
 	
@@ -47,7 +47,7 @@ public class BinaryToHex extends Activity {
 	    setContentView(R.layout.binary_to_hex);
 	    context = this.getApplicationContext();
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
-	    fbr = new FourBitHexRow(aLayout, getBaseContext());
+	    fbr = new BinaryRow(aLayout, getBaseContext(), 4);
 	    
 	    this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		// Load the sound
@@ -87,7 +87,7 @@ public class BinaryToHex extends Activity {
 			}
 			@Override
 			public void onTick(long millisUntilFinished) {
-				fbr = new FourBitHexRow(aLayout, getBaseContext());
+				fbr = new BinaryRow(aLayout, getBaseContext(), 4);
 				fbr.putNewRow();
 				
 				rowArray.add(fbr);			
@@ -127,7 +127,7 @@ public class BinaryToHex extends Activity {
 				}
 			}
 			if(rowArray.size() == 0){
-				fbr = new FourBitHexRow(aLayout, getBaseContext());
+				fbr = new BinaryRow(aLayout, getBaseContext(), 4);
 				fbr.putNewRow();
 				
 				rowArray.add(fbr);

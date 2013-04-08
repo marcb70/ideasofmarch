@@ -92,6 +92,10 @@
             android:name="edu.csumb.ideasofmarch.codecruncher.BinaryRow"
             android:label="@string/title_activity_binary_row" >
         </activity>
+        <activity
+            android:name="edu.csumb.ideasofmarch.codecruncher.HexRow"
+            android:label="@string/title_activity_hex_row" >
+        </activity>
     </application>
 
 </manifest>
