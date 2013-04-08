@@ -34,5 +34,6 @@
     <string name="title_activity_binary_to_hex_hard">BinaryToHexHard</string>
     <string name="title_activity_game_over">GameOver</string>
     <string name="title_activity_binary_row">BinaryRow</string>
+    <string name="title_activity_hex_row">HexRow</string>
 
 </resources>

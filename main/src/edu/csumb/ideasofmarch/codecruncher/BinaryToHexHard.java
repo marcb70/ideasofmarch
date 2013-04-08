@@ -27,8 +27,8 @@ public class BinaryToHexHard extends Activity {
 	private TextView hexSolution;
 	private TextView clock;
 	private int score = 0;
-	private EightBitHexRow ebr;
-	private ArrayList <EightBitHexRow> rowArray = new ArrayList<EightBitHexRow>();
+	private BinaryRow ebr;
+	private ArrayList <BinaryRow> rowArray = new ArrayList<BinaryRow>();
 	private LinearLayout aLayout;
 	private Context context;
 	
@@ -41,7 +41,7 @@ public class BinaryToHexHard extends Activity {
 	    context = this.getApplicationContext();
 	    setContentView(R.layout.binary_to_decimal);
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
-	    ebr = new EightBitHexRow(aLayout, getBaseContext());
+	    ebr = new BinaryRow(aLayout, getBaseContext(), 8);
 	    
 	    this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		// Load the sound
@@ -81,7 +81,7 @@ public class BinaryToHexHard extends Activity {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				ebr = new EightBitHexRow(aLayout, getBaseContext());
+				ebr = new BinaryRow(aLayout, getBaseContext(), 8);
 				ebr.putNewRow();
 				
 				rowArray.add(ebr);
@@ -121,7 +121,7 @@ public class BinaryToHexHard extends Activity {
 				}
 			}
 			if(rowArray.size() == 0){
-				ebr = new EightBitHexRow(aLayout, getBaseContext());
+				ebr = new BinaryRow(aLayout, getBaseContext(), 8);
 				ebr.putNewRow();
 
 				rowArray.add(ebr);
