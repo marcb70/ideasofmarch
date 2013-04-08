@@ -3,6 +3,8 @@ package edu.csumb.ideasofmarch.codecruncher;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
@@ -39,9 +41,16 @@ public class ScoresHelper {
 		}
 		
 		HttpClient httpclient = new DefaultHttpClient();
+		String restUrl = "";
+		try {
+			restUrl = URLEncoder.encode(CrunchConstants.backendURL + "/?name="
+					+ name + "&score=" + totalScores, "UTF-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
-		HttpGet httpget = new HttpGet(CrunchConstants.backendURL + "/?name="
-				+ name + "&score=" + totalScores);
+		HttpGet httpget = new HttpGet(restUrl);
 
 		try {
 			httpclient.execute(httpget);
