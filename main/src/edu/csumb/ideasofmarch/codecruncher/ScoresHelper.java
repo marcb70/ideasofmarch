@@ -37,18 +37,13 @@ public class ScoresHelper {
 		int totalScores = 0;
 		
 		for(int i = 0; i < CrunchConstants.NUM_GAME_MODES; i++){
-			totalScores += CrunchConstants.myScoresMap.get(i+1);
+			if(CrunchConstants.myScoresMap.containsKey(i+1))
+				totalScores += CrunchConstants.myScoresMap.get(i+1);
 		}
 		
 		HttpClient httpclient = new DefaultHttpClient();
 		String restUrl = "";
-		try {
-			restUrl = URLEncoder.encode(CrunchConstants.backendURL + "/?name="
-					+ name + "&score=" + totalScores, "UTF-8");
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		restUrl = CrunchConstants.backendURL + "/?name=" + URLEncoder.encode(name) + "&score=" + totalScores;
 		
 		HttpGet httpget = new HttpGet(restUrl);
 
