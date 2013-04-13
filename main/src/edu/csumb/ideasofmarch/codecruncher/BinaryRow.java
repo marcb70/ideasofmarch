@@ -22,8 +22,8 @@ public class BinaryRow implements GameRow {
 	
 	public BinaryRow(LinearLayout aLayout, Context aContext, int Digits) {
 		pll = aLayout;
-		randNum = (int) Math.floor(Math.random() * (2 ^ Digits));	
 		numDigits = Digits;
+		randNum = (int) Math.floor(Math.random() * (Math.pow(2,numDigits)));	
 		question = new TextView(aContext);
 		
 		int resID = (int) Math.floor(Math.random()*3);
@@ -107,7 +107,7 @@ public class BinaryRow implements GameRow {
 			rowCount--;
 			return true;
 		}else{
-			randNum = (int) Math.floor(Math.random()*16);
+			randNum = (int) Math.floor(Math.random()*(Math.pow(2,numDigits)));
 			question.setText("" + randNum);
 		return false;
 		}
