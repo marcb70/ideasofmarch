@@ -1,6 +1,7 @@
 package edu.csumb.ideasofmarch.codecruncher;
 
 import java.util.ArrayList;
+import java.util.logging.Logger;
 
 import android.app.Activity;
 import android.content.Context;
@@ -104,11 +105,16 @@ public class BinaryToDecimal extends Activity {
 
 	}
 
-	public void correctAnswer(View view) {
+	public void correctAnswer(BinaryRow br) {
 		score += 5;
 		
-		if (rowArray.contains(view)) {
-			rowArray.remove(view);
+		if (rowArray.contains(br)) {
+			rowArray.remove(br);
+			if (rowArray.size() == 0) {
+				fbr = new BinaryRow(aLayout, instance, 4);
+				fbr.putNewRow();
+				rowArray.add(fbr);
+			}
 		}
 		
 		AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
@@ -121,13 +127,6 @@ public class BinaryToDecimal extends Activity {
 		
 		if (loaded) {
 			soundPool.play(dingSound, volume, volume, 1, 0, 1f);
-		}
-		
-		if (rowArray.size() == 0) {
-			fbr = new BinaryRow(aLayout, instance, 4);
-			fbr.putNewRow();
-
-			rowArray.add(fbr);
 		}
 	}
 }

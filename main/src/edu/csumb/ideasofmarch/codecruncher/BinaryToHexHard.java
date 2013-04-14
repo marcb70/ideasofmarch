@@ -27,8 +27,8 @@ public class BinaryToHexHard extends Activity {
 	private TextView hexSolution;
 	private TextView clock;
 	private int score = 0;
-	private BinaryRow ebr;
-	private ArrayList <BinaryRow> rowArray = new ArrayList<BinaryRow>();
+	private HexRow ebr;
+	private ArrayList <HexRow> rowArray = new ArrayList<HexRow>();
 	private LinearLayout aLayout;
 	private Context context;
 	
@@ -42,7 +42,7 @@ public class BinaryToHexHard extends Activity {
 	    setContentView(R.layout.binary_to_decimal);
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 	    instance = this;
-	    ebr = new BinaryRow(aLayout, instance, 8);
+	    ebr = new HexRow(aLayout, instance, 8);
 	    
 	    this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		// Load the sound
@@ -82,7 +82,7 @@ public class BinaryToHexHard extends Activity {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				ebr = new BinaryRow(aLayout, instance, 8);
+				ebr = new HexRow(aLayout, instance, 8);
 				ebr.putNewRow();
 				
 				rowArray.add(ebr);
@@ -90,43 +90,33 @@ public class BinaryToHexHard extends Activity {
 	    };
 	    
 	    clock = (TextView) findViewById(R.id.title);
-	    submitButton = (Button) findViewById(R.id.submitButton);
-	    hexSolution = (TextView) findViewById(R.id.hexSolution);
-	    
-	    submitButton.setOnClickListener(new SubmitButtonListener());
+	    hexSolution = (TextView) findViewById(R.id.hexSolution);	    
 	    gameClock.start();
 	    moreTimer.start();    
 	}
 
-    private class SubmitButtonListener implements OnClickListener {
-		public void onClick(View view) {
-			if(rowArray.size() != 0){
-				for (int i = 0; i < rowArray.size();i++){
-					if(rowArray.get(i).checkProblem()){
-						score += 25;
-						rowArray.remove(i);
-						
-						AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-						float actualVolume = (float) audioManager
-								.getStreamVolume(AudioManager.STREAM_MUSIC);
-						float maxVolume = (float) audioManager
-								.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-						float volume = actualVolume / maxVolume;
-						// Is the sound loaded already?
-						if (loaded) {
-							soundPool.play(dingSound, volume, volume, 1, 0, 1f);
-							Log.e("Test", "Played sound");
-						}
-						
-					}
-				}
-			}
-			if(rowArray.size() == 0){
-				ebr = new BinaryRow(aLayout, instance, 8);
+	public void correctAnswer(HexRow hr) {
+		score += 5;
+		
+		if (rowArray.contains(hr)) {
+			rowArray.remove(hr);
+			if (rowArray.size() == 0) {
+				ebr = new HexRow(aLayout, instance, 4);
 				ebr.putNewRow();
-
 				rowArray.add(ebr);
 			}
 		}
-    }
+		
+		AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+		float actualVolume = (float) audioManager
+				.getStreamVolume(AudioManager.STREAM_MUSIC);
+		float maxVolume = (float) audioManager
+				.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		float volume = actualVolume / maxVolume;
+		// Is the sound loaded already?
+		
+		if (loaded) {
+			soundPool.play(dingSound, volume, volume, 1, 0, 1f);
+		}
+	}
 }

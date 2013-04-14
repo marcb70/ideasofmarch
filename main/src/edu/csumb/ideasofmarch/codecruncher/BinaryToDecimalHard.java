@@ -120,63 +120,33 @@ public class BinaryToDecimalHard extends Activity {
 	    solution1 = (int) Math.floor(Math.random()*16);
 	    decimalSolution1.setText("" + solution1);
 	*/    
-	    submitButton.setOnClickListener(new SubmitButtonListener());
 	    gameClock.start();
 	    moreTimer.start();
 	    
 	  }
 
-    private class SubmitButtonListener implements OnClickListener {
-		public void onClick(View view) {
-		//	binaryInput = getGuess();
-		//	int decimalGuess = convertBinarytoDecimal(binaryInput);
-			
-			if(rowArray.size() != 0){
-				for (int i = 0; i < rowArray.size();i++){
-					if(rowArray.get(i).checkProblem()){
-						score += 20;
-						rowArray.remove(i);
-						
-						AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-						float actualVolume = (float) audioManager
-								.getStreamVolume(AudioManager.STREAM_MUSIC);
-						float maxVolume = (float) audioManager
-								.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-						float volume = actualVolume / maxVolume;
-						// Is the sound loaded already?
-						if (loaded) {
-							soundPool.play(dingSound, volume, volume, 1, 0, 1f);
-							Log.e("Test", "Played sound");
-						}
-					}
-				}
-			}
-			if(rowArray.size() == 0){
+	public void correctAnswer(BinaryRow br) {
+		score += 5;
+		
+		if (rowArray.contains(br)) {
+			rowArray.remove(br);
+			if (rowArray.size() == 0) {
 				ebr = new BinaryRow(aLayout, instance, 8);
 				ebr.putNewRow();
-				
 				rowArray.add(ebr);
 			}
 		}
-    }
-/*   
-    public String getGuess() {
-    	String binaryInput = "";
-    	
-    	for(int i = numDigits-1; i >= 0; i--) {
-    		if(digits1[i].isChecked()) {
-    			binaryInput += "1";
-    		} else {
-    			binaryInput += "0";
-    		}
-    			
-    	}
-    	
-    	return binaryInput;
-    }
-    
-    public int convertBinarytoDecimal(String binaryInput) {
-    	return Integer.parseInt(binaryInput, 2);
-    }
-    */
+		
+		AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
+		float actualVolume = (float) audioManager
+				.getStreamVolume(AudioManager.STREAM_MUSIC);
+		float maxVolume = (float) audioManager
+				.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+		float volume = actualVolume / maxVolume;
+		// Is the sound loaded already?
+		
+		if (loaded) {
+			soundPool.play(dingSound, volume, volume, 1, 0, 1f);
+		}
+	}
 }

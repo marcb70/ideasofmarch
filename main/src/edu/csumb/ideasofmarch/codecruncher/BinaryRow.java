@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 public class BinaryRow implements GameRow {
-	
+	private BinaryRow instance = null; 
 	static int rowCount = 0;
 	private Activity ctx;
 	private LinearLayout pll,ll;
@@ -26,6 +26,7 @@ public class BinaryRow implements GameRow {
 	private List<ToggleButton> buttonList = new ArrayList<ToggleButton>();
 	
 	public BinaryRow(LinearLayout aLayout, Activity aContext, int Digits) {
+		instance = this;
 		ctx = aContext;
 		pll = aLayout;
 		numDigits = Digits;
@@ -130,7 +131,11 @@ public class BinaryRow implements GameRow {
 		
 		public void onClick(View view) {
 			if(checkProblem()){
-				 ((BinaryToDecimal) ctx).correctAnswer(view);
+				 if(numDigits == 4){
+					((BinaryToDecimal) ctx).correctAnswer(instance);
+				 }else{
+					 ((BinaryToDecimalHard) ctx).correctAnswer(instance);
+				 }
 			}
 		}	
 	}
