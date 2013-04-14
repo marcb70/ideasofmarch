@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
@@ -61,7 +62,7 @@ public class MainActivity extends Activity {
 	private void getUserName() {
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
+		
 		alert.setTitle("Username");
 		alert.setMessage("What is your name?");
 
@@ -69,6 +70,7 @@ public class MainActivity extends Activity {
 		final EditText input = new EditText(this);
 		alert.setView(input);
 
+		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				Editable value = input.getText();
@@ -77,22 +79,7 @@ public class MainActivity extends Activity {
 
 			}
 		});
-
-		input.setOnKeyListener(new View.OnKeyListener() {
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				// TODO Auto-generated method stub
-				if (keyCode == KeyEvent.KEYCODE_ENTER) {
-					Editable value = input.getText();
-					// Do something with value!
-					updateUserName(value.toString());
-					return true;
-				}
-				return false;
-
-			}
-		});
-
+		
 		alert.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
@@ -100,7 +87,8 @@ public class MainActivity extends Activity {
 						updateUserName("Anonymous");
 					}
 				});
-
+		
+		
 		alert.show();
 
 	}
@@ -272,33 +260,21 @@ public class MainActivity extends Activity {
 	}
 
 	public void initLocalPreferences() {
-		if (CrunchConstants.myPreferencesMap != null && 
-				CrunchConstants.myPreferencesMap.containsKey(CrunchConstants.JSON_NAME) && 
-				CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME).isEmpty())
-			getUserName();
-
 		try {
-
 			InputStream is = openFileInput(CrunchConstants.PREFERENCES_FILENAME);
-
 			final Gson gson = new Gson();
 			final BufferedReader reader = new BufferedReader(
 					new InputStreamReader(is));
-
 			CrunchConstants.myPreferencesMap = gson.fromJson(reader,
 					new TypeToken<Map<String, String>>() {
 					}.getType());
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Log.v("error", "died in get assets init local high scores", e);
-
 			Map<String, String> myTemporaryMap = new HashMap<String, String>();
-
 			// Update this to ask user for input to add to file.
 			myTemporaryMap.put(CrunchConstants.JSON_NAME, "XXX");
-
 			CrunchConstants.myPreferencesMap = myTemporaryMap;
 		}
 
@@ -318,6 +294,11 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		if (CrunchConstants.myPreferencesMap == null || 
+				!CrunchConstants.myPreferencesMap.containsKey(CrunchConstants.JSON_NAME) || 
+				CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME).isEmpty())
+			getUserName();
 
 	}
 
