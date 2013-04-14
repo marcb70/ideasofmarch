@@ -53,6 +53,7 @@ public class ChooseMode extends Activity {
 	
 	public void startNewBinaryToDecimal() {
     	startActivity(new Intent(this, BinaryToDecimal.class));
+    	finish();
     }
 	
 	private class BinaryToDecimalHardButtonListener implements OnClickListener {
@@ -63,6 +64,7 @@ public class ChooseMode extends Activity {
     
     public void startNewBinaryToDecimalHard() {
     	startActivity(new Intent(this, BinaryToDecimalHard.class));
+    	finish();
     }
     
     private class HexToDecimalButtonListener implements OnClickListener {
@@ -73,6 +75,7 @@ public class ChooseMode extends Activity {
     
     public void startNewHexToDecimal() {
     	startActivity(new Intent(this, HexToDecimal.class));
+    	finish();
     }
     
     private class DecimalToBinaryButtonListener implements OnClickListener {
@@ -83,6 +86,7 @@ public class ChooseMode extends Activity {
     
     public void startNewDecimalToBinary() {
     	startActivity(new Intent(this, DecimalToBinary.class));
+    	finish();
     }
     
     private class DecimalToHexButtonListener implements OnClickListener {
@@ -93,6 +97,7 @@ public class ChooseMode extends Activity {
     
     public void startNewDecimalToHex() {
     	startActivity(new Intent(this, DecimalToHex.class));
+    	finish();
     }
     
     private class BinaryToHexButtonListener implements OnClickListener {
@@ -103,6 +108,7 @@ public class ChooseMode extends Activity {
     
     public void startNewBinaryToHex() {
     	startActivity(new Intent(this, BinaryToHex.class));
+    	finish();
     }
     
     private class BinaryToHexHardButtonListener implements OnClickListener {
@@ -113,6 +119,7 @@ public class ChooseMode extends Activity {
     
     public void startNewBinaryToHexHard() {
     	startActivity(new Intent(this, BinaryToHexHard.class));
+    	finish();
     }
     
     private class HexToBinaryButtonListener implements OnClickListener {
@@ -123,5 +130,6 @@ public class ChooseMode extends Activity {
     
     public void startNewHexToBinary() {
     	startActivity(new Intent(this, HexToBinary.class));
+    	finish();
     }
 }
