@@ -3,10 +3,14 @@ package edu.csumb.ideasofmarch.codecruncher;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.Color;
+import android.media.AudioManager;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.ToggleButton;
@@ -14,17 +18,19 @@ import android.widget.ToggleButton;
 public class BinaryRow implements GameRow {
 	
 	static int rowCount = 0;
+	private Activity ctx;
 	private LinearLayout pll,ll;
 	private int randNum, numDigits;
 	private TextView question;
 	private ToggleButton t1,t2,t3,t4;
 	private List<ToggleButton> buttonList = new ArrayList<ToggleButton>();
 	
-	public BinaryRow(LinearLayout aLayout, Context aContext, int Digits) {
+	public BinaryRow(LinearLayout aLayout, Activity aContext, int Digits) {
+		ctx = aContext;
 		pll = aLayout;
 		numDigits = Digits;
 		randNum = (int) Math.floor(Math.random() * (Math.pow(2,numDigits)));	
-		question = new TextView(aContext);
+		question = new Button(aContext);
 		
 		int resID = (int) Math.floor(Math.random()*3);
 		if(resID == 0) {
@@ -50,12 +56,11 @@ public class BinaryRow implements GameRow {
 		for (int i = 0; i < numDigits; i++) {
 			ll.addView(buttonList.get(i));
 		}
-		
 		question.setText("" + randNum);
 		question.setTextColor(Color.WHITE);
 		question.setTextSize(20);
-		question.setBackgroundResource(R.drawable.textbox);
-		
+		question.setBackgroundResource(R.drawable.graybutton);
+		question.setOnClickListener(new SubmitButtonListener());
 		ll.addView(question);
 	}
 
@@ -120,5 +125,15 @@ public class BinaryRow implements GameRow {
 	public void resetRowCount(){
 		rowCount = 0;
 	}
+	
+	private class SubmitButtonListener implements OnClickListener {
+		
+		public void onClick(View view) {
+			if(checkProblem()){
+				 ((BinaryToDecimal) ctx).correctAnswer(view);
+			}
+		}	
+	}
+
 }
 

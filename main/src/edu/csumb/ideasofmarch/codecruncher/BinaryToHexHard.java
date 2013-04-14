@@ -19,7 +19,7 @@ import android.widget.TextView;
 
 
 public class BinaryToHexHard extends Activity {
-	
+	private BinaryToHexHard instance = null;
 	public static final int numDigits = 4;
 	private CountDownTimer gameClock;
 	private CountDownTimer moreTimer;
@@ -41,7 +41,8 @@ public class BinaryToHexHard extends Activity {
 	    context = this.getApplicationContext();
 	    setContentView(R.layout.binary_to_decimal);
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
-	    ebr = new BinaryRow(aLayout, getBaseContext(), 8);
+	    instance = this;
+	    ebr = new BinaryRow(aLayout, instance, 8);
 	    
 	    this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		// Load the sound
@@ -62,7 +63,7 @@ public class BinaryToHexHard extends Activity {
 			@Override
 			public void onFinish() {
 				ebr.resetRowCount();
-				Intent intent = new Intent(getBaseContext(), GameOver.class);
+				Intent intent = new Intent(instance, GameOver.class);
 				intent.putExtra("GAME_TAG_CODE", CrunchConstants.BINARY_TO_HEX_HARD);
 				intent.putExtra("GAME_SCORE", score);
 				startActivity(intent); 
@@ -81,7 +82,7 @@ public class BinaryToHexHard extends Activity {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				ebr = new BinaryRow(aLayout, getBaseContext(), 8);
+				ebr = new BinaryRow(aLayout, instance, 8);
 				ebr.putNewRow();
 				
 				rowArray.add(ebr);
@@ -121,7 +122,7 @@ public class BinaryToHexHard extends Activity {
 				}
 			}
 			if(rowArray.size() == 0){
-				ebr = new BinaryRow(aLayout, getBaseContext(), 8);
+				ebr = new BinaryRow(aLayout, instance, 8);
 				ebr.putNewRow();
 
 				rowArray.add(ebr);

@@ -22,7 +22,7 @@ import android.widget.ToggleButton;
 public class BinaryToHex extends Activity {
 	
 	public static final int numDigits = 4;
-	
+	private BinaryToHex instance = null;
 	private ToggleButton digits[];
 	private CountDownTimer gameClock;
 	private CountDownTimer moreTimer;
@@ -47,7 +47,8 @@ public class BinaryToHex extends Activity {
 	    setContentView(R.layout.binary_to_hex);
 	    context = this.getApplicationContext();
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
-	    fbr = new BinaryRow(aLayout, getBaseContext(), 4);
+	    instance = this;
+	    fbr = new BinaryRow(aLayout, instance, 4);
 	    
 	    this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		// Load the sound
@@ -68,7 +69,7 @@ public class BinaryToHex extends Activity {
 			public void onFinish() {
 				// TODO Auto-generated method stub
 				fbr.resetRowCount();
-				Intent intent = new Intent(getBaseContext(), GameOver.class);
+				Intent intent = new Intent(instance, GameOver.class);
 				intent.putExtra("GAME_TAG_CODE", CrunchConstants.BINARY_TO_HEX);
 				intent.putExtra("GAME_SCORE", score);
 				startActivity(intent); 
@@ -87,7 +88,7 @@ public class BinaryToHex extends Activity {
 			}
 			@Override
 			public void onTick(long millisUntilFinished) {
-				fbr = new BinaryRow(aLayout, getBaseContext(), 4);
+				fbr = new BinaryRow(aLayout, instance, 4);
 				fbr.putNewRow();
 				
 				rowArray.add(fbr);			
@@ -127,7 +128,7 @@ public class BinaryToHex extends Activity {
 				}
 			}
 			if(rowArray.size() == 0){
-				fbr = new BinaryRow(aLayout, getBaseContext(), 4);
+				fbr = new BinaryRow(aLayout, instance, 4);
 				fbr.putNewRow();
 				
 				rowArray.add(fbr);

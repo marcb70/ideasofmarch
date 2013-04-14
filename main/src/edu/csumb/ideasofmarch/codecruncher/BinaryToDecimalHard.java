@@ -23,7 +23,7 @@ import android.widget.ToggleButton;
 
 
 public class BinaryToDecimalHard extends Activity {
-	
+	private BinaryToDecimalHard instance = null;
 	public static final int numDigits = 4;
 	private CountDownTimer gameClock;
 	private CountDownTimer moreTimer;
@@ -49,7 +49,8 @@ public class BinaryToDecimalHard extends Activity {
 	    context = this.getApplicationContext();
 	    setContentView(R.layout.binary_to_decimal);
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
-	    ebr = new BinaryRow(aLayout, getBaseContext(), 8);
+	    instance = this;
+	    ebr = new BinaryRow(aLayout, instance, 8);
 	    //rowArray.add(ebr);
 	    
 	    this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -72,7 +73,7 @@ public class BinaryToDecimalHard extends Activity {
 			public void onFinish() {
 				// TODO Auto-generated method stub
 				ebr.resetRowCount();
-				Intent intent = new Intent(getBaseContext(), GameOver.class);
+				Intent intent = new Intent(instance, GameOver.class);
 				intent.putExtra("GAME_TAG_CODE", CrunchConstants.BINARY_TO_DECIMAL_HARD);
 				intent.putExtra("GAME_SCORE", score);
 				startActivity(intent);   
@@ -98,7 +99,7 @@ public class BinaryToDecimalHard extends Activity {
 			@Override
 			public void onTick(long millisUntilFinished) {
 				// TODO Auto-generated method stub
-				ebr = new BinaryRow(aLayout, getBaseContext(), 8);
+				ebr = new BinaryRow(aLayout, instance, 8);
 				ebr.putNewRow();
 				
 				rowArray.add(ebr);
@@ -151,7 +152,7 @@ public class BinaryToDecimalHard extends Activity {
 				}
 			}
 			if(rowArray.size() == 0){
-				ebr = new BinaryRow(aLayout, getBaseContext(), 8);
+				ebr = new BinaryRow(aLayout, instance, 8);
 				ebr.putNewRow();
 				
 				rowArray.add(ebr);
