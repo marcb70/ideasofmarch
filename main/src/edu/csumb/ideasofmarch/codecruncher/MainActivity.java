@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
 	private void getUserName() {
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-		final Dialog dialog;
+		
 		alert.setTitle("Username");
 		alert.setMessage("What is your name?");
 
@@ -70,9 +70,6 @@ public class MainActivity extends Activity {
 		final EditText input = new EditText(this);
 		alert.setView(input);
 
-	
-
-		dialog = alert.create();
 		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
@@ -82,23 +79,7 @@ public class MainActivity extends Activity {
 
 			}
 		});
-
-		input.setOnKeyListener(new View.OnKeyListener() {
-			@Override
-			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				// TODO Auto-generated method stub
-				if (keyCode == KeyEvent.KEYCODE_ENTER) {
-					Editable value = input.getText();
-					// Do something with value!
-					updateUserName(value.toString());
-					dialog.cancel();
-					return true;
-				}
-				return false;
-
-			}
-		});
-
+		
 		alert.setNegativeButton("Cancel",
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
@@ -108,7 +89,7 @@ public class MainActivity extends Activity {
 				});
 		
 		
-		dialog.show();
+		alert.show();
 
 	}
 
@@ -279,30 +260,21 @@ public class MainActivity extends Activity {
 	}
 
 	public void initLocalPreferences() {
-		
-
 		try {
-
 			InputStream is = openFileInput(CrunchConstants.PREFERENCES_FILENAME);
-
 			final Gson gson = new Gson();
 			final BufferedReader reader = new BufferedReader(
 					new InputStreamReader(is));
-
 			CrunchConstants.myPreferencesMap = gson.fromJson(reader,
 					new TypeToken<Map<String, String>>() {
 					}.getType());
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Log.v("error", "died in get assets init local high scores", e);
-
 			Map<String, String> myTemporaryMap = new HashMap<String, String>();
-
 			// Update this to ask user for input to add to file.
 			myTemporaryMap.put(CrunchConstants.JSON_NAME, "XXX");
-
 			CrunchConstants.myPreferencesMap = myTemporaryMap;
 		}
 
