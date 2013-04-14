@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
@@ -61,7 +62,7 @@ public class MainActivity extends Activity {
 	private void getUserName() {
 
 		AlertDialog.Builder alert = new AlertDialog.Builder(this);
-
+		final Dialog dialog;
 		alert.setTitle("Username");
 		alert.setMessage("What is your name?");
 
@@ -69,6 +70,10 @@ public class MainActivity extends Activity {
 		final EditText input = new EditText(this);
 		alert.setView(input);
 
+	
+
+		dialog = alert.create();
+		
 		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
 			public void onClick(DialogInterface dialog, int whichButton) {
 				Editable value = input.getText();
@@ -86,6 +91,7 @@ public class MainActivity extends Activity {
 					Editable value = input.getText();
 					// Do something with value!
 					updateUserName(value.toString());
+					dialog.cancel();
 					return true;
 				}
 				return false;
@@ -100,8 +106,9 @@ public class MainActivity extends Activity {
 						updateUserName("Anonymous");
 					}
 				});
-
-		alert.show();
+		
+		
+		dialog.show();
 
 	}
 
@@ -272,10 +279,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void initLocalPreferences() {
-		if (CrunchConstants.myPreferencesMap != null && 
-				CrunchConstants.myPreferencesMap.containsKey(CrunchConstants.JSON_NAME) && 
-				CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME).isEmpty())
-			getUserName();
+		
 
 		try {
 
@@ -318,6 +322,11 @@ public class MainActivity extends Activity {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		if (CrunchConstants.myPreferencesMap == null || 
+				CrunchConstants.myPreferencesMap.containsKey(CrunchConstants.JSON_NAME) || 
+				CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME).isEmpty())
+			getUserName();
 
 	}
 
