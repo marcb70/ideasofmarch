@@ -3,42 +3,31 @@ package edu.csumb.ideasofmarch.codecruncher;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 
 public class BinaryToHexHard extends Activity {
 	private BinaryToHexHard instance = null;
 	public static final int numDigits = 4;
 	private CountDownTimer gameClock;
 	private CountDownTimer moreTimer;
-	private Button submitButton;
-	private TextView hexSolution;
 	private TextView clock;
 	private int score = 0;
 	private HexRow ebr;
 	private ArrayList <HexRow> rowArray = new ArrayList<HexRow>();
 	private LinearLayout aLayout;
-	private Context context;
-	
 	private SoundPool soundPool;
-	private int clapSound, dingSound;
+	private int dingSound;
 	boolean loaded = false;
 	
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
-	    context = this.getApplicationContext();
 	    setContentView(R.layout.binary_to_decimal);
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 	    instance = this;
@@ -55,7 +44,6 @@ public class BinaryToHexHard extends Activity {
 			}
 		});
 	    
-		clapSound = soundPool.load(this, R.raw.clap, 1);
 		dingSound = soundPool.load(this, R.raw.ding, 1);
 		
 	    gameClock = new CountDownTimer(60000,1000){
@@ -89,8 +77,7 @@ public class BinaryToHexHard extends Activity {
 			}
 	    };
 	    
-	    clock = (TextView) findViewById(R.id.title);
-	    hexSolution = (TextView) findViewById(R.id.hexSolution);	    
+	    clock = (TextView) findViewById(R.id.title);	    
 	    gameClock.start();
 	    moreTimer.start();    
 	}

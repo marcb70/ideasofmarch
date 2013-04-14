@@ -17,8 +17,6 @@ public class HexToBinary extends Activity {
 	private Button submitButton;
 	private TextView binarySolution;
 	private int solution;
-	private String [] hexValues = new String[16];
-	
 	private CountDownTimer gameClock;
 	private CountDownTimer moreTimer;
 	private TextView clock;
@@ -83,6 +81,7 @@ public class HexToBinary extends Activity {
 	    
 	    submitButton.setOnClickListener(new SubmitButtonListener());
 	    gameClock.start();
+	    moreTimer.start();
 	}
 
     private class SubmitButtonListener implements OnClickListener {

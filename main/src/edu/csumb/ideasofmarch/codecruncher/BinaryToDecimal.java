@@ -1,19 +1,13 @@
 package edu.csumb.ideasofmarch.codecruncher;
 
 import java.util.ArrayList;
-import java.util.logging.Logger;
-
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -23,13 +17,11 @@ public class BinaryToDecimal extends Activity {
 	public static final int numDigits = 4;
 	private CountDownTimer gameClock;
 	private CountDownTimer moreTimer;
-	private Button submitButton;
 	private TextView clock;
 	private int score = 0;
 	private BinaryRow fbr;
 	private ArrayList<BinaryRow> rowArray = new ArrayList<BinaryRow>();
 	private LinearLayout aLayout;
-	private Context context;
 	private SoundPool soundPool;
 	private int dingSound;
 	boolean loaded = false;
@@ -38,7 +30,6 @@ public class BinaryToDecimal extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		
 		super.onCreate(savedInstanceState);
-		context = this.getApplicationContext();
 		setContentView(R.layout.binary_to_decimal);
 		aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 		instance = this;
@@ -61,7 +52,6 @@ public class BinaryToDecimal extends Activity {
 
 			@Override
 			public void onFinish() {
-				// TODO Auto-generated method stub
 				fbr.resetRowCount();
 				Intent intent = new Intent(getBaseContext(), GameOver.class);
 				intent.putExtra("GAME_TAG_CODE",
@@ -84,13 +74,11 @@ public class BinaryToDecimal extends Activity {
 
 			@Override
 			public void onFinish() {
-				// TODO Auto-generated method stub
 
 			}
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				// TODO Auto-generated method stub
 				fbr = new BinaryRow(aLayout, instance, 4);
 				fbr.putNewRow();
 

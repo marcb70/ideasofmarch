@@ -32,7 +32,6 @@ public class DecimalToBinary extends Activity {
 	    gameClock = new CountDownTimer(60000,1000){
 			@Override
 			public void onFinish() {
-				// TODO Auto-generated method stub
 				clock.setText("Game Over " + score + " points");
 			}
 			@Override
@@ -51,8 +50,7 @@ public class DecimalToBinary extends Activity {
 				finish();
 			}
 			@Override
-			public void onTick(long millisUntilFinished) {
-				// TODO Auto-generated method stub				
+			public void onTick(long millisUntilFinished) {			
 			}	    	
 	    };
 	    
@@ -70,6 +68,7 @@ public class DecimalToBinary extends Activity {
 	    
 	    submitButton.setOnClickListener(new SubmitButtonListener());
 	    gameClock.start();
+	    moreTimer.start();
 	  }
 
     private class SubmitButtonListener implements OnClickListener {

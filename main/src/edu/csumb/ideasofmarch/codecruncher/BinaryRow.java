@@ -2,11 +2,8 @@ package edu.csumb.ideasofmarch.codecruncher;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Color;
-import android.media.AudioManager;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.View.OnClickListener;
@@ -22,7 +19,7 @@ public class BinaryRow implements GameRow {
 	private LinearLayout pll,ll;
 	private int randNum, numDigits;
 	private TextView question;
-	private ToggleButton t1,t2,t3,t4;
+	private ToggleButton t1;
 	private List<ToggleButton> buttonList = new ArrayList<ToggleButton>();
 	
 	public BinaryRow(LinearLayout aLayout, Activity aContext, int Digits) {

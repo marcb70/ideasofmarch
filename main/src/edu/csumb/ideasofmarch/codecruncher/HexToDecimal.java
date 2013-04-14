@@ -7,18 +7,14 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.NumberPicker;
 
 public class HexToDecimal extends Activity {
 
 	private NumberPicker hexInput;
-	private Button submitButton;
 	private TextView decimalSolution;
 	private int solution;
-	private String [] hexValues = new String[16];
-	
 	private CountDownTimer gameClock;
 	private CountDownTimer moreTimer;
 	private TextView clock;
@@ -46,18 +42,15 @@ public class HexToDecimal extends Activity {
 	    
 	    moreTimer = new CountDownTimer(60000, 5000){
 			@Override
-			public void onFinish() {
-				// TODO Auto-generated method stub				
+			public void onFinish() {		
 			}
 			@Override
-			public void onTick(long millisUntilFinished) {
-				// TODO Auto-generated method stub				
+			public void onTick(long millisUntilFinished) {		
 			}	    	
 	    };
 	    
 	    clock = (TextView) findViewById(R.id.title);
 	    
-	    submitButton = (Button) findViewById(R.id.submitButton);
 	    
 	    String [] hexValues = new String[16];
 	    for (int i = 0; i < 10; i ++) {
@@ -80,12 +73,12 @@ public class HexToDecimal extends Activity {
 	    solution = newSolution();
 	    
 	    decimalSolution.setText("" + solution);
-	    
-	    submitButton.setOnClickListener(new SubmitButtonListener());
 	    gameClock.start();
+	    moreTimer.start();
 	}
 
-    private class SubmitButtonListener implements OnClickListener {
+    @SuppressWarnings("unused")
+	private class SubmitButtonListener implements OnClickListener {
 		public void onClick(View view) {
 			// Get the string in binary of the user's guess
 			String hexGuess = Integer.toHexString(hexInput.getValue());

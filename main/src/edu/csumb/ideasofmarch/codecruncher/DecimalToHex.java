@@ -46,11 +46,11 @@ public class DecimalToHex extends Activity {
 	    moreTimer = new CountDownTimer(60000, 5000){
 			@Override
 			public void onFinish() {
-				// TODO Auto-generated method stub				
+			
 			}
 			@Override
 			public void onTick(long millisUntilFinished) {
-				// TODO Auto-generated method stub				
+			
 			}	    	
 	    };
 	    
@@ -68,6 +68,7 @@ public class DecimalToHex extends Activity {
 	    
 	    submitButton.setOnClickListener(new SubmitButtonListener());
 	    gameClock.start();
+	    moreTimer.start();
 	}
 
     private class SubmitButtonListener implements OnClickListener {

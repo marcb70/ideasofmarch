@@ -3,49 +3,36 @@ package edu.csumb.ideasofmarch.codecruncher;
 import java.util.ArrayList;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 public class BinaryToHex extends Activity {
 	
 	public static final int numDigits = 4;
 	private BinaryToHex instance = null;
-	private ToggleButton digits[];
 	private CountDownTimer gameClock;
 	private CountDownTimer moreTimer;
-	private String binaryInput;
-	private Button submitButton;
-	private TextView hexSolution;
 	private TextView clock;
-	private int solution;
 	private int score = 0;
 	private HexRow fbr;
 	private ArrayList <HexRow> rowArray = new ArrayList<HexRow>();
 	private LinearLayout aLayout;
-	private Context context;
+
 	
 	private SoundPool soundPool;
-	private int clapSound, dingSound;
+	private int dingSound;
 	boolean loaded = false;
 	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
 	    setContentView(R.layout.binary_to_hex);
-	    context = this.getApplicationContext();
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 	    instance = this;
 	    fbr = new HexRow(aLayout, instance, 4);
@@ -61,13 +48,11 @@ public class BinaryToHex extends Activity {
 			}
 		});
 	    
-		clapSound = soundPool.load(this, R.raw.clap, 1);
 		dingSound = soundPool.load(this, R.raw.ding, 1);
 		
 	    gameClock = new CountDownTimer(60000,1000){
 			@Override
 			public void onFinish() {
-				// TODO Auto-generated method stub
 				fbr.resetRowCount();
 				Intent intent = new Intent(instance, GameOver.class);
 				intent.putExtra("GAME_TAG_CODE", CrunchConstants.BINARY_TO_HEX);
@@ -84,8 +69,9 @@ public class BinaryToHex extends Activity {
 	    moreTimer = new CountDownTimer(60000, 5000){
 			@Override
 			public void onFinish() {
-				// TODO Auto-generated method stub				
+							
 			}
+			
 			@Override
 			public void onTick(long millisUntilFinished) {
 				fbr = new HexRow(aLayout, instance, 4);

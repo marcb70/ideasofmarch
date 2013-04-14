@@ -8,23 +8,18 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnKeyListener;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.text.Editable;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,6 +27,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 
+@SuppressLint("UseSparseArrays")
 public class MainActivity extends Activity {
 
 	Button newGameButton;
@@ -106,10 +102,8 @@ public class MainActivity extends Activity {
 					.getBytes());
 			fos.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -221,7 +215,7 @@ public class MainActivity extends Activity {
 			is.close();
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			Log.v("error", "died in get assets init local high scores", e);
 
@@ -250,10 +244,10 @@ public class MainActivity extends Activity {
 			fos.write(new Gson().toJson(CrunchConstants.myScoresMap).getBytes());
 			fos.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 
@@ -269,7 +263,7 @@ public class MainActivity extends Activity {
 					new TypeToken<Map<String, String>>() {
 					}.getType());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			Log.v("error", "died in get assets init local high scores", e);
 			Map<String, String> myTemporaryMap = new HashMap<String, String>();
@@ -288,10 +282,10 @@ public class MainActivity extends Activity {
 					.getBytes());
 			fos.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		

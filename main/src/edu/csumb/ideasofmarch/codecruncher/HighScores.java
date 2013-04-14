@@ -1,36 +1,27 @@
 package edu.csumb.ideasofmarch.codecruncher;
 
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class HighScores extends Activity {
 
 	private static final int NUM_GLOBAL_SCORES_TO_DISPLAY = 10;
-
-	private SharedPreferences localHighScores;
 	private TextView localScoresTextView[];
 	private TextView localTotalTextView;
 	private int localTotal;
@@ -42,9 +33,6 @@ public class HighScores extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.high_scores);
-
-		localHighScores = getSharedPreferences(
-				CrunchConstants.LOCAL_HIGH_SCORES, MODE_PRIVATE);
 		populateLocalScores();
 		populateGlobalScores();
 	}

@@ -67,7 +67,8 @@ public class ChooseMode extends Activity {
     	finish();
     }
     
-    private class HexToDecimalButtonListener implements OnClickListener {
+    @SuppressWarnings("unused")
+	private class HexToDecimalButtonListener implements OnClickListener {
 		public void onClick(View view) {
 			startNewHexToDecimal();
 		}
@@ -78,6 +79,7 @@ public class ChooseMode extends Activity {
     	finish();
     }
     
+    @SuppressWarnings("unused")
     private class DecimalToBinaryButtonListener implements OnClickListener {
 		public void onClick(View view) {
 			startNewDecimalToBinary();
@@ -89,6 +91,7 @@ public class ChooseMode extends Activity {
     	finish();
     }
     
+    @SuppressWarnings("unused")
     private class DecimalToHexButtonListener implements OnClickListener {
 		public void onClick(View view) {
 			startNewDecimalToHex();
@@ -122,6 +125,7 @@ public class ChooseMode extends Activity {
     	finish();
     }
     
+    @SuppressWarnings("unused")
     private class HexToBinaryButtonListener implements OnClickListener {
 		public void onClick(View view) {
 			startNewHexToBinary();

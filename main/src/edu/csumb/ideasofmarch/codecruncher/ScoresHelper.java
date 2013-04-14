@@ -3,17 +3,12 @@ package edu.csumb.ideasofmarch.codecruncher;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-
-import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
-
 import com.google.gson.Gson;
 
 public class ScoresHelper {
@@ -24,6 +19,7 @@ public class ScoresHelper {
         mContext = context;
     }
 
+	@SuppressWarnings("deprecation")
 	public void putGlobalHighScore(String name, int score, int constantGameType) {
 		
 //		int current = CrunchConstants.myScoresMap.get(constantGameType);
@@ -67,15 +63,13 @@ public class ScoresHelper {
 		
 		
 		try {
-			FileOutputStream fos = mContext.openFileOutput(CrunchConstants.SCORES_FILENAME, mContext.MODE_PRIVATE);
+			FileOutputStream fos = mContext.openFileOutput(CrunchConstants.SCORES_FILENAME, Context.MODE_PRIVATE);
 			
 			fos.write(new Gson().toJson(CrunchConstants.myScoresMap).getBytes());
 			fos.close();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
