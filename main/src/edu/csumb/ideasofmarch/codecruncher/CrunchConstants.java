@@ -23,4 +23,5 @@ public class CrunchConstants {
 	public static final String SCORES_FILENAME = "scores.json";
 	public static Map<String, String> myPreferencesMap;
 	public static Map<Integer, Integer> myScoresMap;
+	public static boolean SOUND_MUTED = false;
 }
