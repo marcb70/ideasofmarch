@@ -36,5 +36,7 @@
     <string name="title_activity_binary_row">BinaryRow</string>
     <string name="title_activity_hex_row">HexRow</string>
     <string name="sound">Sound Effects:</string>
+    <string name="change_name">Submit</string>
+    <string name="change_name_help_text">Enter a new nickname...</string>
 
 </resources>
