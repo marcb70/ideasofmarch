@@ -3,9 +3,6 @@ package edu.csumb.ideasofmarch.codecruncher;
 import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.LinearLayout;
@@ -22,9 +19,8 @@ public class BinaryToDecimal extends Activity {
 	private BinaryRow fbr;
 	private ArrayList<BinaryRow> rowArray = new ArrayList<BinaryRow>();
 	private LinearLayout aLayout;
-	private SoundPool soundPool;
-	private int dingSound;
-	boolean loaded = false;
+	private SoundHelper soundHelper;
+
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -34,20 +30,8 @@ public class BinaryToDecimal extends Activity {
 		aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 		instance = this;
 		fbr = new BinaryRow(aLayout, instance, 4);
-
-		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
-		// Load the sound
-		soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-		soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
-			@Override
-			public void onLoadComplete(SoundPool soundPool, int sampleId,
-					int status) {
-				loaded = true;
-			}
-		});
-
-		dingSound = soundPool.load(this, R.raw.ding, 1);
-
+		soundHelper = new SoundHelper(instance);
+		soundHelper.loadDing();
 		gameClock = new CountDownTimer(60000, 1000) {
 
 			@Override
@@ -57,6 +41,7 @@ public class BinaryToDecimal extends Activity {
 				intent.putExtra("GAME_TAG_CODE",
 						CrunchConstants.BINARY_TO_DECIMAL);
 				intent.putExtra("GAME_SCORE", score);
+				soundHelper.kill();
 				startActivity(intent);
 				finish();
 			}
@@ -104,17 +89,6 @@ public class BinaryToDecimal extends Activity {
 				rowArray.add(fbr);
 			}
 		}
-		
-		AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-		float actualVolume = (float) audioManager
-				.getStreamVolume(AudioManager.STREAM_MUSIC);
-		float maxVolume = (float) audioManager
-				.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-		float volume = actualVolume / maxVolume;
-		// Is the sound loaded already?
-		
-		if (loaded) {
-			soundPool.play(dingSound, volume, volume, 1, 0, 1f);
-		}
+		soundHelper.playDing();
 	}
 }
