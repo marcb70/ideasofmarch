@@ -3,6 +3,9 @@ package edu.csumb.ideasofmarch.codecruncher;
 import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.LinearLayout;
@@ -15,7 +18,10 @@ public class BinaryToHexHard extends Activity {
 	private CountDownTimer moreTimer;
 	private TextView clock;
 	private int score = 0;
+	private int dingSound;
 	private BinaryRow ebr;
+	private SoundPool soundPool;
+	private boolean loaded = false;
 	private ArrayList <BinaryRow> rowArray = new ArrayList<BinaryRow>();
 	private LinearLayout aLayout;
 	private SoundHelper soundHelper;
@@ -42,7 +48,6 @@ public class BinaryToHexHard extends Activity {
 		
 	    soundHelper = new SoundHelper(instance);
 	    soundHelper.loadDing();
-	    ebr = new HexRow(aLayout, instance, 8, 2); // Final int is: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 	    gameClock = new CountDownTimer(60000,1000){
 
 			@Override

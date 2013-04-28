@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Intent;
 
+import android.media.AudioManager;
+import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.LinearLayout;
@@ -18,7 +21,10 @@ public class BinaryToDecimalHard extends Activity {
 	private CountDownTimer moreTimer;
 	private TextView clock;
 	private int score = 0;
+	private int dingSound;
+	private boolean loaded = false;
 	private BinaryRow ebr;
+	private SoundPool soundPool;
 	private ArrayList <BinaryRow> rowArray = new ArrayList<BinaryRow>();
 	private LinearLayout aLayout;
 	private SoundHelper soundHelper;
