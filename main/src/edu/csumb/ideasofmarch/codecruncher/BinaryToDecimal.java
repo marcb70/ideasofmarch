@@ -33,7 +33,7 @@ public class BinaryToDecimal extends Activity {
 		setContentView(R.layout.binary_to_decimal);
 		aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 		instance = this;
-		fbr = new BinaryRow(aLayout, instance, 4);
+		fbr = new BinaryRow(aLayout, instance, 4, 0); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 
 		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
 		// Load the sound
@@ -79,7 +79,7 @@ public class BinaryToDecimal extends Activity {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				fbr = new BinaryRow(aLayout, instance, 4);
+				fbr = new BinaryRow(aLayout, instance, 4, 0); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 				fbr.putNewRow();
 
 				rowArray.add(fbr);
@@ -99,7 +99,7 @@ public class BinaryToDecimal extends Activity {
 		if (rowArray.contains(br)) {
 			rowArray.remove(br);
 			if (rowArray.size() == 0) {
-				fbr = new BinaryRow(aLayout, instance, 4);
+				fbr = new BinaryRow(aLayout, instance, 4, 0); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 				fbr.putNewRow();
 				rowArray.add(fbr);
 			}

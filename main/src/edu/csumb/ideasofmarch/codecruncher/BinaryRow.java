@@ -2,6 +2,7 @@ package edu.csumb.ideasofmarch.codecruncher;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.lang.Integer;
 import android.app.Activity;
 import android.graphics.Color;
 import android.view.View;
@@ -20,13 +21,15 @@ public class BinaryRow implements GameRow {
 	private int randNum, numDigits;
 	private TextView question;
 	private ToggleButton t1;
+	private int ANSWER_TYPE; // 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 	private List<ToggleButton> buttonList = new ArrayList<ToggleButton>();
 	
-	public BinaryRow(LinearLayout aLayout, Activity aContext, int Digits) {
+	public BinaryRow(LinearLayout aLayout, Activity aContext, int Digits, int answerType) {
 		instance = this;
 		ctx = aContext;
 		pll = aLayout;
 		numDigits = Digits;
+		ANSWER_TYPE = answerType;
 		randNum = (int) Math.floor(Math.random() * (Math.pow(2,numDigits)));	
 		question = new Button(aContext);
 		
@@ -54,7 +57,14 @@ public class BinaryRow implements GameRow {
 		for (int i = 0; i < numDigits; i++) {
 			ll.addView(buttonList.get(i));
 		}
-		question.setText("" + randNum);
+		
+		if (ANSWER_TYPE == 0) // Decimal
+			question.setText("" + randNum);
+		if (ANSWER_TYPE == 1) // Binary
+			question.setText(Integer.toBinaryString(randNum));
+		if (ANSWER_TYPE == 2) // Hexadecimal
+			question.setText(Integer.toHexString(randNum));
+		
 		question.setTextColor(Color.WHITE);
 		question.setTextSize(20);
 		question.setBackgroundResource(R.drawable.graybutton);
@@ -130,8 +140,10 @@ public class BinaryRow implements GameRow {
 			if(checkProblem()){
 				 if(numDigits == 4){
 					((BinaryToDecimal) ctx).correctAnswer(instance);
+					((BinaryToHex) ctx).correctAnswer(instance);
 				 }else{
 					 ((BinaryToDecimalHard) ctx).correctAnswer(instance);
+					 ((BinaryToHexHard) ctx).correctAnswer(instance);
 				 }
 			}
 		}	
