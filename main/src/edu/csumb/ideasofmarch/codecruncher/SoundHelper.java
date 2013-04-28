@@ -50,7 +50,7 @@ public class SoundHelper {
 	}
 
 	public void playDing() {
-		if (loaded) {
+		if (loaded&&CrunchConstants.SOUND_MUTED) {
 			soundPool.play(dingSound, volume, volume, 1, 0, 1f);
 		}
 	}
@@ -60,7 +60,7 @@ public class SoundHelper {
 	}
 	public void playClap() {
 		Log.v("playing clap", "yeah! " + loaded);
-		if (loaded) {
+		if (loaded&&CrunchConstants.SOUND_MUTED) {
 			soundPool.play(clapSound, volume, volume, 1, 0, 1f);
 		}
 	}

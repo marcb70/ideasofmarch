@@ -21,6 +21,7 @@ public class Settings extends Activity {
 	private class MuteSoundToggleListener implements OnClickListener {
 		public void onClick(View view) {
 			setPreference(muteSound.isChecked());
+			CrunchConstants.SOUND_MUTED = muteSound.isChecked();
 		}
 	}
 	
