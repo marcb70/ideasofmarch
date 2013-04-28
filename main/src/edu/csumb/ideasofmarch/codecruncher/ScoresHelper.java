@@ -36,8 +36,8 @@ public class ScoresHelper {
 		int totalScores = 0;
 		
 		for(int i = 0; i < CrunchConstants.NUM_GAME_MODES; i++){
-			if(CrunchConstants.myScoresMap.containsKey(i+1))
-				totalScores += CrunchConstants.myScoresMap.get(i+1);
+			if(CrunchConstants.myScoresMap.get(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME)).containsKey(i+1))
+				totalScores += CrunchConstants.myScoresMap.get(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME)).get(i+1);
 		}
 		
 		HttpClient httpclient = new DefaultHttpClient();
@@ -57,10 +57,10 @@ public class ScoresHelper {
 	}
 	
 	private void updateLocalScores(int score, int constantGameType){
-		int current = CrunchConstants.myScoresMap.get(constantGameType);
+		int current = CrunchConstants.myScoresMap.get(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME)).get(constantGameType);
 		if (score > current){
-			CrunchConstants.myScoresMap.remove(constantGameType);
-			CrunchConstants.myScoresMap.put(constantGameType, score);
+			CrunchConstants.myScoresMap.get(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME)).remove(constantGameType);
+			CrunchConstants.myScoresMap.get(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME)).put(constantGameType, score);
 		} else {
 			return;
 		}

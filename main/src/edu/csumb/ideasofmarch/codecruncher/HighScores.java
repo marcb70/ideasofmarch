@@ -83,10 +83,10 @@ public class HighScores extends Activity {
 		for (int i = 0; i < CrunchConstants.NUM_GAME_MODES/2; i++) {
 			int score = 0;
 			int hardScore = 0;
-			if(CrunchConstants.myScoresMap.containsKey(i+1))
-				score = CrunchConstants.myScoresMap.get(i+1);
-			if(CrunchConstants.myScoresMap.containsKey(i+1 + CrunchConstants.NUM_GAME_MODES))
-				hardScore = CrunchConstants.myScoresMap.get(i+1 + CrunchConstants.NUM_GAME_MODES);
+			if(CrunchConstants.myScoresMap.get(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME)).containsKey(i+1))
+				score = CrunchConstants.myScoresMap.get(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME)).get(i+1);
+			if(CrunchConstants.myScoresMap.get(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME)).containsKey(i+1 + CrunchConstants.NUM_GAME_MODES))
+				hardScore = CrunchConstants.myScoresMap.get(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME)).get(i+1 + CrunchConstants.NUM_GAME_MODES);
 			localScoresTextView[i].setText("" + score + "/" + hardScore);
 			localTotal += score + hardScore;
 		}
