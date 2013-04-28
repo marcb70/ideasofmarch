@@ -139,11 +139,15 @@ public class BinaryRow implements GameRow {
 		public void onClick(View view) {
 			if(checkProblem()){
 				 if(numDigits == 4){
-					((BinaryToDecimal) ctx).correctAnswer(instance);
-					((BinaryToHex) ctx).correctAnswer(instance);
+					 if (ANSWER_TYPE == 0) 
+						 ((BinaryToDecimal) ctx).correctAnswer(instance);
+					 if (ANSWER_TYPE == 2)
+						 ((BinaryToHex) ctx).correctAnswer(instance);
 				 }else{
-					 ((BinaryToDecimalHard) ctx).correctAnswer(instance);
-					 ((BinaryToHexHard) ctx).correctAnswer(instance);
+					 if (ANSWER_TYPE == 0)
+						 ((BinaryToDecimalHard) ctx).correctAnswer(instance);
+					 if (ANSWER_TYPE == 2)
+						 ((BinaryToHexHard) ctx).correctAnswer(instance);
 				 }
 			}
 		}	
