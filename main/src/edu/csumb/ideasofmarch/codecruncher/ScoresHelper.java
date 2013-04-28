@@ -4,17 +4,20 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URLEncoder;
+
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+
+//import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
+
 import com.google.gson.Gson;
 
 public class ScoresHelper {
 
 	Context mContext = null;
-
     public ScoresHelper (Context context) {
         mContext = context;
     }
@@ -42,9 +45,10 @@ public class ScoresHelper {
 		restUrl = CrunchConstants.backendURL + "/?name=" + URLEncoder.encode(name) + "&score=" + totalScores;
 		
 		HttpGet httpget = new HttpGet(restUrl);
-
+		
 		try {
 			httpclient.execute(httpget);
+
 		} catch (Exception e) {
 			Log.v("error",
 					"Exception thrown! Check out calls to 'getGlobalHighScores().'");

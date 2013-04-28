@@ -1,12 +1,8 @@
 package edu.csumb.ideasofmarch.codecruncher;
 
 import java.util.ArrayList;
-
 import android.app.Activity;
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.media.SoundPool.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.widget.LinearLayout;
@@ -22,9 +18,7 @@ public class BinaryToHexHard extends Activity {
 	private BinaryRow ebr;
 	private ArrayList <BinaryRow> rowArray = new ArrayList<BinaryRow>();
 	private LinearLayout aLayout;
-	private SoundPool soundPool;
-	private int dingSound;
-	boolean loaded = false;
+	private SoundHelper soundHelper;
 	
 	public void onCreate(Bundle savedInstanceState) {
 	    super.onCreate(savedInstanceState);
@@ -46,6 +40,9 @@ public class BinaryToHexHard extends Activity {
 	    
 		dingSound = soundPool.load(this, R.raw.ding, 1);
 		
+	    soundHelper = new SoundHelper(instance);
+	    soundHelper.loadDing();
+	    ebr = new HexRow(aLayout, instance, 8, 2); // Final int is: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 	    gameClock = new CountDownTimer(60000,1000){
 
 			@Override
@@ -93,17 +90,6 @@ public class BinaryToHexHard extends Activity {
 				rowArray.add(ebr);
 			}
 		}
-		
-		AudioManager audioManager = (AudioManager) getSystemService(AUDIO_SERVICE);
-		float actualVolume = (float) audioManager
-				.getStreamVolume(AudioManager.STREAM_MUSIC);
-		float maxVolume = (float) audioManager
-				.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-		float volume = actualVolume / maxVolume;
-		// Is the sound loaded already?
-		
-		if (loaded) {
-			soundPool.play(dingSound, volume, volume, 1, 0, 1f);
-		}
+		soundHelper.playDing();
 	}
 }

@@ -293,7 +293,5 @@ public class MainActivity extends Activity {
 				!CrunchConstants.myPreferencesMap.containsKey(CrunchConstants.JSON_NAME) || 
 				CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME).isEmpty())
 			getUserName();
-
 	}
-
 }
