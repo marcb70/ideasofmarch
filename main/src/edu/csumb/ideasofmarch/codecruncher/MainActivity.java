@@ -41,8 +41,13 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 
 		disabledPolicy();
-		initLocalPreferences();
 		initLocalScores();
+		
+		//Get UserName now handles creating and reading in preferences map.  Preferences map is currently just current signed in user.
+		//lots of current in that line.
+		getUserName();
+		//initLocalPreferences();
+		
 
 		newGameButton = (Button) findViewById(R.id.newGameButton);
 		donateButton = (Button) findViewById(R.id.donateButton);
@@ -80,19 +85,43 @@ public class MainActivity extends Activity {
 				new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int whichButton) {
 						// clicked cancel, set name to UNK.
-						updateUserName("Anonymous");
+						 updateUserName("Anonymous");
 					}
 				});
 		
 		
 		alert.show();
-
+		
 	}
 
 	private void updateUserName(String name) {
-
-		CrunchConstants.myPreferencesMap.remove(CrunchConstants.JSON_NAME);
+		if(CrunchConstants.myPreferencesMap == null)
+			CrunchConstants.myPreferencesMap = new HashMap<String, String>();
+		if(CrunchConstants.myPreferencesMap.containsKey(CrunchConstants.JSON_NAME))
+			CrunchConstants.myPreferencesMap.remove(CrunchConstants.JSON_NAME);
+		
 		CrunchConstants.myPreferencesMap.put(CrunchConstants.JSON_NAME, name);
+		if(! CrunchConstants.myScoresMap.containsKey(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME)) )
+		{
+			Map<Integer, Integer> myTemporaryMap = new HashMap<Integer, Integer>();
+			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_BINARY, 0);
+			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_HEX, 0);
+			myTemporaryMap.put(CrunchConstants.HEX_TO_BINARY, 0);
+			myTemporaryMap.put(CrunchConstants.HEX_TO_DECIMAL, 0);
+			myTemporaryMap.put(CrunchConstants.BINARY_TO_DECIMAL, 0);
+			myTemporaryMap.put(CrunchConstants.BINARY_TO_HEX, 0);
+			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_BINARY_HARD, 0);
+			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_HEX_HARD, 0);
+			myTemporaryMap.put(CrunchConstants.HEX_TO_BINARY_HARD, 0);
+			myTemporaryMap.put(CrunchConstants.HEX_TO_DECIMAL_HARD, 0);
+			myTemporaryMap.put(CrunchConstants.BINARY_TO_DECIMAL_HARD, 0);
+			myTemporaryMap.put(CrunchConstants.BINARY_TO_HEX_HARD, 0);
+			
+			CrunchConstants.myScoresMap.put(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME), myTemporaryMap);
+		}
+		
+		
+		
 
 		try {
 			FileOutputStream fos = openFileOutput(
@@ -209,32 +238,19 @@ public class MainActivity extends Activity {
 					new InputStreamReader(is));
 
 			CrunchConstants.myScoresMap = gson.fromJson(reader,
-					new TypeToken<Map<Integer, Integer>>() {
+					new TypeToken<HashMap<String, Map<Integer, Integer>>>() {
 					}.getType());
 
 			is.close();
+			
 
 		} catch (Exception e) {
 			
 			e.printStackTrace();
 			Log.v("error", "died in get assets init local high scores", e);
 
-			Map<Integer, Integer> myTemporaryMap = new HashMap<Integer, Integer>();
-
-			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_BINARY, 0);
-			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_HEX, 0);
-			myTemporaryMap.put(CrunchConstants.HEX_TO_BINARY, 0);
-			myTemporaryMap.put(CrunchConstants.HEX_TO_DECIMAL, 0);
-			myTemporaryMap.put(CrunchConstants.BINARY_TO_DECIMAL, 0);
-			myTemporaryMap.put(CrunchConstants.BINARY_TO_HEX, 0);
-			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_BINARY_HARD, 0);
-			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_HEX_HARD, 0);
-			myTemporaryMap.put(CrunchConstants.HEX_TO_BINARY_HARD, 0);
-			myTemporaryMap.put(CrunchConstants.HEX_TO_DECIMAL_HARD, 0);
-			myTemporaryMap.put(CrunchConstants.BINARY_TO_DECIMAL_HARD, 0);
-			myTemporaryMap.put(CrunchConstants.BINARY_TO_HEX_HARD, 0);
-
-			CrunchConstants.myScoresMap = myTemporaryMap;
+			HashMap<String, Map<Integer, Integer>> temporaryScoresMap = new HashMap<String, Map<Integer,Integer>>();
+			CrunchConstants.myScoresMap = temporaryScoresMap;
 		}
 
 		try {
@@ -254,7 +270,9 @@ public class MainActivity extends Activity {
 	}
 
 	public void initLocalPreferences() {
+		
 		try {
+			
 			InputStream is = openFileInput(CrunchConstants.PREFERENCES_FILENAME);
 			final Gson gson = new Gson();
 			final BufferedReader reader = new BufferedReader(
@@ -266,10 +284,9 @@ public class MainActivity extends Activity {
 			
 			e.printStackTrace();
 			Log.v("error", "died in get assets init local high scores", e);
-			Map<String, String> myTemporaryMap = new HashMap<String, String>();
-			// Update this to ask user for input to add to file.
-			myTemporaryMap.put(CrunchConstants.JSON_NAME, "XXX");
-			CrunchConstants.myPreferencesMap = myTemporaryMap;
+			//Map<String, String> myTemporaryMap = new HashMap<String, String>();
+			//CrunchConstants.myPreferencesMap = myTemporaryMap;
+			
 		}
 
 		// Successfully init
@@ -289,9 +306,6 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 		
-		if (CrunchConstants.myPreferencesMap == null || 
-				!CrunchConstants.myPreferencesMap.containsKey(CrunchConstants.JSON_NAME) || 
-				CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME).isEmpty())
-			getUserName();
+		
 	}
 }
