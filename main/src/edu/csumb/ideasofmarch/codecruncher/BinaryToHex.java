@@ -17,8 +17,8 @@ public class BinaryToHex extends Activity {
 	private CountDownTimer moreTimer;
 	private TextView clock;
 	private int score = 0;
-	private HexRow fbr;
-	private ArrayList <HexRow> rowArray = new ArrayList<HexRow>();
+	private BinaryRow fbr;
+	private ArrayList <BinaryRow> rowArray = new ArrayList<BinaryRow>();
 	private LinearLayout aLayout;
 	private SoundHelper soundHelper;
 	
@@ -28,9 +28,9 @@ public class BinaryToHex extends Activity {
 	    setContentView(R.layout.binary_to_hex);
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 	    instance = this;
+	    fbr = new BinaryRow(aLayout, instance, 4, 2); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 	    soundHelper = new SoundHelper(instance);
 	    soundHelper.loadDing();
-	    fbr = new HexRow(aLayout, instance, 4);
 	    
 	    gameClock = new CountDownTimer(60000,1000){
 			@Override
@@ -56,7 +56,7 @@ public class BinaryToHex extends Activity {
 			
 			@Override
 			public void onTick(long millisUntilFinished) {
-				fbr = new HexRow(aLayout, instance, 4);
+				fbr = new BinaryRow(aLayout, instance, 4, 2); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 				fbr.putNewRow();
 				
 				rowArray.add(fbr);			
@@ -68,13 +68,13 @@ public class BinaryToHex extends Activity {
 	    moreTimer.start();
 	}
 
-	public void correctAnswer(HexRow hr) {
+	public void correctAnswer(BinaryRow hr) {
 		score += 5;
 		
 		if (rowArray.contains(hr)) {
 			rowArray.remove(hr);
 			if (rowArray.size() == 0) {
-				fbr = new HexRow(aLayout, instance, 4);
+				fbr = new BinaryRow(aLayout, instance, 4, 2); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 				fbr.putNewRow();
 				rowArray.add(fbr);
 			}
