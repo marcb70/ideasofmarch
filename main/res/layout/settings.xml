@@ -30,23 +30,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
-        <EditText
-            android:id="@+id/changeName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-			android:hint="@string/change_name_help_text" >
-        </EditText>
-
-        <Button
-            android:id="@+id/submitChangeName"
+        <Spinner
+            android:id="@+id/spinner1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/graybutton"
-            android:text="@string/change_name"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:padding="@dimen/standard_padding" />
+            android:layout_weight="1" />
 
     </LinearLayout>
 
