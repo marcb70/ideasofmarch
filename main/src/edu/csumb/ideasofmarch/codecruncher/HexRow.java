@@ -130,9 +130,9 @@ public class HexRow implements GameRow {
 		public void onClick(View view) {
 			if(checkProblem()){
 				 if(numDigits == 4){
-					((BinaryToHex) ctx).correctAnswer(instance);
+					//((BinaryToHex) ctx).correctAnswer(instance);
 				 }else{
-					 ((BinaryToHexHard) ctx).correctAnswer(instance);
+					 //((BinaryToHexHard) ctx).correctAnswer(instance);
 				 }
 			}
 		}	

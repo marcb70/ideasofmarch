@@ -29,7 +29,22 @@ public class BinaryToDecimal extends Activity {
 		setContentView(R.layout.binary_to_decimal);
 		aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 		instance = this;
-		fbr = new BinaryRow(aLayout, instance, 4);
+		fbr = new BinaryRow(aLayout, instance, 4, 0); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
+
+		this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		// Load the sound
+		soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+			@Override
+			public void onLoadComplete(SoundPool soundPool, int sampleId,
+					int status) {
+				loaded = true;
+			}
+		});
+
+		dingSound = soundPool.load(this, R.raw.ding, 1);
+
+		fbr = new BinaryRow(aLayout, instance, 4, 0); // Final int is: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 		soundHelper = new SoundHelper(instance);
 		soundHelper.loadDing();
 		gameClock = new CountDownTimer(60000, 1000) {
@@ -64,7 +79,7 @@ public class BinaryToDecimal extends Activity {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				fbr = new BinaryRow(aLayout, instance, 4);
+				fbr = new BinaryRow(aLayout, instance, 4, 0); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 				fbr.putNewRow();
 
 				rowArray.add(fbr);
@@ -84,7 +99,7 @@ public class BinaryToDecimal extends Activity {
 		if (rowArray.contains(br)) {
 			rowArray.remove(br);
 			if (rowArray.size() == 0) {
-				fbr = new BinaryRow(aLayout, instance, 4);
+				fbr = new BinaryRow(aLayout, instance, 4, 0); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 				fbr.putNewRow();
 				rowArray.add(fbr);
 			}

@@ -15,8 +15,8 @@ public class BinaryToHexHard extends Activity {
 	private CountDownTimer moreTimer;
 	private TextView clock;
 	private int score = 0;
-	private HexRow ebr;
-	private ArrayList <HexRow> rowArray = new ArrayList<HexRow>();
+	private BinaryRow ebr;
+	private ArrayList <BinaryRow> rowArray = new ArrayList<BinaryRow>();
 	private LinearLayout aLayout;
 	private SoundHelper soundHelper;
 	
@@ -25,9 +25,24 @@ public class BinaryToHexHard extends Activity {
 	    setContentView(R.layout.binary_to_decimal);
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 	    instance = this;
+	    ebr = new BinaryRow(aLayout, instance, 8, 2); // Final int is: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
+	    
+	    this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		// Load the sound
+		soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+			@Override
+			public void onLoadComplete(SoundPool soundPool, int sampleId,
+					int status) {
+				loaded = true;
+			}
+		});
+	    
+		dingSound = soundPool.load(this, R.raw.ding, 1);
+		
 	    soundHelper = new SoundHelper(instance);
 	    soundHelper.loadDing();
-	    ebr = new HexRow(aLayout, instance, 8);
+	    ebr = new HexRow(aLayout, instance, 8, 2); // Final int is: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 	    gameClock = new CountDownTimer(60000,1000){
 
 			@Override
@@ -52,7 +67,7 @@ public class BinaryToHexHard extends Activity {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				ebr = new HexRow(aLayout, instance, 8);
+				ebr = new BinaryRow(aLayout, instance, 8, 2); // Final int is: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 				ebr.putNewRow();
 				
 				rowArray.add(ebr);
@@ -64,13 +79,13 @@ public class BinaryToHexHard extends Activity {
 	    moreTimer.start();    
 	}
 
-	public void correctAnswer(HexRow hr) {
+	public void correctAnswer(BinaryRow hr) {
 		score += 5;
 		
 		if (rowArray.contains(hr)) {
 			rowArray.remove(hr);
 			if (rowArray.size() == 0) {
-				ebr = new HexRow(aLayout, instance, 4);
+				ebr = new BinaryRow(aLayout, instance, 8, 2); // Final int is: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 				ebr.putNewRow();
 				rowArray.add(ebr);
 			}

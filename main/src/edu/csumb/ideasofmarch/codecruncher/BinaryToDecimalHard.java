@@ -29,7 +29,22 @@ public class BinaryToDecimalHard extends Activity {
 	    setContentView(R.layout.binary_to_decimal);
 	    aLayout = (LinearLayout) findViewById(R.id.mainLayout);
 	    instance = this;
-	    ebr = new BinaryRow(aLayout, instance, 8);
+	    ebr = new BinaryRow(aLayout, instance, 8, 0); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
+
+	    this.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+		// Load the sound
+		soundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+		soundPool.setOnLoadCompleteListener(new OnLoadCompleteListener() {
+			@Override
+			public void onLoadComplete(SoundPool soundPool, int sampleId,
+					int status) {
+				loaded = true;
+			}
+		});
+		
+		dingSound = soundPool.load(this, R.raw.ding, 1);
+	 
+	    ebr = new BinaryRow(aLayout, instance, 8, 0); // Final int is: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 		soundHelper = new SoundHelper(instance);
 		soundHelper.loadDing();
 	    gameClock = new CountDownTimer(60000,1000){
@@ -61,7 +76,7 @@ public class BinaryToDecimalHard extends Activity {
 
 			@Override
 			public void onTick(long millisUntilFinished) {
-				ebr = new BinaryRow(aLayout, instance, 8);
+				ebr = new BinaryRow(aLayout, instance, 8, 0); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 				ebr.putNewRow();
 				
 				rowArray.add(ebr);
@@ -81,7 +96,7 @@ public class BinaryToDecimalHard extends Activity {
 		if (rowArray.contains(br)) {
 			rowArray.remove(br);
 			if (rowArray.size() == 0) {
-				ebr = new BinaryRow(aLayout, instance, 8);
+				ebr = new BinaryRow(aLayout, instance, 8, 0); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 				ebr.putNewRow();
 				rowArray.add(ebr);
 			}
