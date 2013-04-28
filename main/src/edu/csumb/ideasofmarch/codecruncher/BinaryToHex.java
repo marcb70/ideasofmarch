@@ -31,7 +31,6 @@ public class BinaryToHex extends Activity {
 	    fbr = new BinaryRow(aLayout, instance, 4, 2); // Final int is answer type: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 	    soundHelper = new SoundHelper(instance);
 	    soundHelper.loadDing();
-	    fbr = new HexRow(aLayout, instance, 4, 2); // Final int is: 0 - Decimal ; 1 - Binary ; 2 - Hexadecimal
 	    
 	    gameClock = new CountDownTimer(60000,1000){
 			@Override
