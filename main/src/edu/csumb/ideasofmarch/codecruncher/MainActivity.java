@@ -6,26 +6,36 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-import android.net.Uri;
-import android.os.Bundle;
-import android.os.StrictMode;
+
 import android.annotation.SuppressLint;
+import android.app.ActionBar.LayoutParams;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.net.Uri;
+import android.os.Bundle;
+import android.os.StrictMode;
 import android.text.Editable;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemSelectedListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 @SuppressLint("UseSparseArrays")
 public class MainActivity extends Activity {
@@ -42,12 +52,12 @@ public class MainActivity extends Activity {
 
 		disabledPolicy();
 		initLocalScores();
-		
-		//Get UserName now handles creating and reading in preferences map.  Preferences map is currently just current signed in user.
-		//lots of current in that line.
+
+		// Get UserName now handles creating and reading in preferences map.
+		// Preferences map is currently just current signed in user.
+		// lots of current in that line.
 		getUserName();
-		//initLocalPreferences();
-		
+		// initLocalPreferences();
 
 		newGameButton = (Button) findViewById(R.id.newGameButton);
 		donateButton = (Button) findViewById(R.id.donateButton);
@@ -62,47 +72,81 @@ public class MainActivity extends Activity {
 
 	private void getUserName() {
 
-		AlertDialog.Builder alert = new AlertDialog.Builder(this);
+		String name = "";
+		List<String> nameList = new ArrayList<String>();
+		nameList.add("");
+		nameList.add("Anonymous");
 		
-		alert.setTitle("Username");
-		alert.setMessage("What is your name?");
+		for (String key : CrunchConstants.myScoresMap.keySet()){
+			nameList.add(key);
+		}
+		String[] nameArray = (String[]) nameList.toArray(new String[0]);
+		final ArrayAdapter<String> adp = new ArrayAdapter<String>(
+				MainActivity.this, android.R.layout.simple_spinner_item,
+				nameArray);
 
-		// Set an EditText view to get user input
-		final EditText input = new EditText(this);
-		alert.setView(input);
+		// tx= (TextView)findViewById(R.id.txt1);
+		final Spinner sp = new Spinner(MainActivity.this);
+		sp.setLayoutParams(new LinearLayout.LayoutParams(
+				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		sp.setAdapter(adp);
 
+		AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+		builder.setView(sp);
+		builder.setTitle("What is your username?");
+		final AlertDialog dialog = builder.create();
+		dialog.show();
 		
-		alert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-			public void onClick(DialogInterface dialog, int whichButton) {
-				Editable value = input.getText();
-				// Do something with value!
-				updateUserName(value.toString());
+//		builder.setPositiveButton(RESULT_OK, new AlertDialog.OnClickListener() {
+//
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				// TODO Auto-generated method stub
+//				updateUserName(sp.getSelectedItem().toString());
+//				
+//			}});		
+//		builder.setNegativeButton(RESULT_CANCELED, new AlertDialog.OnClickListener() {
+//
+//			@Override
+//			public void onClick(DialogInterface dialog, int which) {
+//				// TODO Auto-generated method stub
+//				updateUserName("AnonymousCoward");
+//				
+//			}});		
+
+		sp.setOnItemSelectedListener(new OnItemSelectedListener() {
+			@Override
+			public void onItemSelected(AdapterView<?> arg0, View arg1,
+					int arg2, long arg3) {
+				// TODO Auto-generated method stub
+				
+				if(arg2 != 0){
+					updateUserName(arg0.getSelectedItem().toString());
+					dialog.dismiss();
+				}
+			}
+
+			@Override
+			public void onNothingSelected(AdapterView<?> arg0) {
+				// TODO Auto-generated method stub
 
 			}
+
 		});
-		
-		alert.setNegativeButton("Cancel",
-				new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int whichButton) {
-						// clicked cancel, set name to UNK.
-						 updateUserName("Anonymous");
-					}
-				});
-		
-		
-		alert.show();
-		
+
 	}
 
 	private void updateUserName(String name) {
-		if(CrunchConstants.myPreferencesMap == null)
+		if (CrunchConstants.myPreferencesMap == null)
 			CrunchConstants.myPreferencesMap = new HashMap<String, String>();
-		if(CrunchConstants.myPreferencesMap.containsKey(CrunchConstants.JSON_NAME))
+		if (CrunchConstants.myPreferencesMap
+				.containsKey(CrunchConstants.JSON_NAME))
 			CrunchConstants.myPreferencesMap.remove(CrunchConstants.JSON_NAME);
-		
+
 		CrunchConstants.myPreferencesMap.put(CrunchConstants.JSON_NAME, name);
-		if(! CrunchConstants.myScoresMap.containsKey(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME)) )
-		{
+		if (!CrunchConstants.myScoresMap
+				.containsKey(CrunchConstants.myPreferencesMap
+						.get(CrunchConstants.JSON_NAME))) {
 			Map<Integer, Integer> myTemporaryMap = new HashMap<Integer, Integer>();
 			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_BINARY, 0);
 			myTemporaryMap.put(CrunchConstants.DECIMAL_TO_HEX, 0);
@@ -116,12 +160,10 @@ public class MainActivity extends Activity {
 			myTemporaryMap.put(CrunchConstants.HEX_TO_DECIMAL_HARD, 0);
 			myTemporaryMap.put(CrunchConstants.BINARY_TO_DECIMAL_HARD, 0);
 			myTemporaryMap.put(CrunchConstants.BINARY_TO_HEX_HARD, 0);
-			
-			CrunchConstants.myScoresMap.put(CrunchConstants.myPreferencesMap.get(CrunchConstants.JSON_NAME), myTemporaryMap);
+
+			CrunchConstants.myScoresMap.put(CrunchConstants.myPreferencesMap
+					.get(CrunchConstants.JSON_NAME), myTemporaryMap);
 		}
-		
-		
-		
 
 		try {
 			FileOutputStream fos = openFileOutput(
@@ -242,14 +284,13 @@ public class MainActivity extends Activity {
 					}.getType());
 
 			is.close();
-			
 
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 			Log.v("error", "died in get assets init local high scores", e);
 
-			HashMap<String, Map<Integer, Integer>> temporaryScoresMap = new HashMap<String, Map<Integer,Integer>>();
+			HashMap<String, Map<Integer, Integer>> temporaryScoresMap = new HashMap<String, Map<Integer, Integer>>();
 			CrunchConstants.myScoresMap = temporaryScoresMap;
 		}
 
@@ -260,19 +301,19 @@ public class MainActivity extends Activity {
 			fos.write(new Gson().toJson(CrunchConstants.myScoresMap).getBytes());
 			fos.close();
 		} catch (FileNotFoundException e) {
-			
+
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
 
 	}
 
 	public void initLocalPreferences() {
-		
+
 		try {
-			
+
 			InputStream is = openFileInput(CrunchConstants.PREFERENCES_FILENAME);
 			final Gson gson = new Gson();
 			final BufferedReader reader = new BufferedReader(
@@ -281,12 +322,13 @@ public class MainActivity extends Activity {
 					new TypeToken<Map<String, String>>() {
 					}.getType());
 		} catch (Exception e) {
-			
+
 			e.printStackTrace();
 			Log.v("error", "died in get assets init local high scores", e);
-			//Map<String, String> myTemporaryMap = new HashMap<String, String>();
-			//CrunchConstants.myPreferencesMap = myTemporaryMap;
-			
+			// Map<String, String> myTemporaryMap = new HashMap<String,
+			// String>();
+			// CrunchConstants.myPreferencesMap = myTemporaryMap;
+
 		}
 
 		// Successfully init
@@ -299,13 +341,12 @@ public class MainActivity extends Activity {
 					.getBytes());
 			fos.close();
 		} catch (FileNotFoundException e) {
-			
+
 			e.printStackTrace();
 		} catch (IOException e) {
-			
+
 			e.printStackTrace();
 		}
-		
-		
+
 	}
 }
